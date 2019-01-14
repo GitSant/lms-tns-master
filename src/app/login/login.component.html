@@ -1,12 +1,27 @@
-<StackLayout  height=280 padding = "0,20,0,20" >
-    <GridLayout verticalAlignment="center" backgroundColor="lightgray" class="form"height=280>
-        <StackLayout class="form">
-            <Label class="h3 text-center" padding="20,0,10,0" text="User Login" font-weight="bolder"></Label>
-                <StackLayout class="input-field">
-                      <TextField class="input" margin="0,0,10,0" style.placeholderColor="lightgray" height = 40 hint="Email Id"  backgroundColor="white" padding="0,0,0,10"></TextField>
-                      <TextField class="input" margin="20,0,0,0"  style.placeholderColor="lightgray" height = 40 hint="Password"  backgroundColor="white" padding="0,0,0,10"></TextField>
-                </StackLayout>
-                    <Button text="Log In" margin="20,0,0,0" class="btn btn-primary"width = 100></Button>
-        </StackLayout>
+<StackLayout width="100%" height="100%">
+    <GridLayout rows="*, auto">
+        <GridLayout row="0" rows="auto" rows="*">
+            <ActivityIndicator color="green" [busy]="isAuthenticating" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+        </GridLayout>
+        <GridLayout row="0" rows="*">
+            <GridLayout row="0" rows="auto, auto, auto" verticalAlignment="top">
+                <GridLayout row="0" rows="auto, auto">
+                    <TextField #email row="1" class="input" margin="0,0,10,0" style.placeholderColor="lightgray" height=40
+                        hint="Email Id" backgroundColor="white" padding="0,0,0,10" keyboardType="email" [(ngModel)]="user.email"
+                        autocorrect="false" autocapitalizationType="none">
+                    </TextField>
+                </GridLayout>
+                <GridLayout row="1" rows="auto, auto">
+                    <TextField #password row="1" col="0" class="input" margin="20,0,0,0" style.placeholderColor="lightgray"
+                        height=40 hint="Password" backgroundColor="white" padding="0,0,0,10"
+                        [(ngModel)]="user.password">
+                    </TextField>
+                </GridLayout>
+                <GridLayout row="2" rows="auto">
+                    <Button row="0" text="Log In" backgroundColor="blue" color="white" (tap)="login()">
+                    </Button>
+                </GridLayout>
+            </GridLayout>
+        </GridLayout>
     </GridLayout>
 </StackLayout>
