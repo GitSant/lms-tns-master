@@ -1,17 +1,17 @@
 import {
   HttpClient,
-  HttpErrorResponse,
-  HttpHeaders
+  HttpHeaders,
+  HttpResponse
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { User } from "../models/user.model";
 
-const endpoint = "api/Employee/ValidateEmployee";
+const endpoint="https://tekysportalapiqa.azurewebsites.net/api/Employee/ValidateEmployee";
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   })
 };
 
@@ -31,7 +31,7 @@ export class AuthenticationService {
     return this.callLoginValidateApiPost(credentials);
   }
 
-  private callLoginValidateApiPost(credentials: any): Observable<Response> {
+  private callLoginValidateApiPost(credentials: any): Observable<any> {
     return this.http
       .post<any>(endpoint, JSON.stringify(credentials), httpOptions)
       .pipe(map(this.extractLoginResponse),
@@ -39,7 +39,7 @@ export class AuthenticationService {
       );
   }
 
-  private extractLoginResponse(response: Response) {
+  private extractLoginResponse(response: any) {
     return response;
   }
 

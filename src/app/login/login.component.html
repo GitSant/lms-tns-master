@@ -13,8 +13,7 @@
                 </GridLayout>
                 <GridLayout row="1" rows="auto, auto">
                     <TextField #password row="1" col="0" class="input" margin="20,0,0,0" style.placeholderColor="lightgray"
-                        height=40 hint="Password" backgroundColor="white" padding="0,0,0,10"
-                        [(ngModel)]="user.password">
+                        height=40 hint="Password" backgroundColor="white" padding="0,0,0,10" secure="true" [(ngModel)]="user.password">
                     </TextField>
                 </GridLayout>
                 <GridLayout row="2" rows="auto">

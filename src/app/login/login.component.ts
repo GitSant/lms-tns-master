@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
+import * as Toast from "nativescript-toast";
 import { Page } from "tns-core-modules/ui/page/page";
 import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
@@ -34,16 +35,21 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.isAuthenticating = true;
-
     this.authservice.login(this.user).subscribe(
       (employeeLoginResponse) => {
-        if (employeeLoginResponse.status === 200) {
+        if (employeeLoginResponse) {
           this.isAuthenticating = false;
+          Toast.makeText("Login success!").show();
           this.routerExtensions.navigate(["/home"], { clearHistory: true });
+        }
+        else{
+          this.isAuthenticating = false;
+          Toast.makeText("Invalid Credentials! Login failed.").show();
         }
       },
       (error) => {
         this.isAuthenticating = false;
+        Toast.makeText("Oops! Somethind went wrong.").show();
         console.error(error);
       }
     );
