@@ -32,6 +32,11 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf005;" class="fa"></Label>
                     <Label col="1" text="Featured" class="p-r-10"></Label>
                 </GridLayout>
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/leavebalance')" (tap)="onNavItemTap('/leavebalance')">
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
+                    <Label col="1" text="Leave Balance" class="p-r-10"></Label>
+                </GridLayout>
     
                 <StackLayout class="hr-light"></StackLayout>
 

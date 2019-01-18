@@ -6,6 +6,7 @@ import { Page } from "tns-core-modules/ui/page/page";
 import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
 import { AuthenticationService } from "../services/authentication.service";
+import { StorageService } from "../services/storage.service";
 
 @Component({
   selector: "Login",
@@ -18,12 +19,13 @@ export class LoginComponent implements OnInit {
 
   user: User;
   isAuthenticating = false;
-
+  inmemorystorage=new StorageService();
   // tslint:disable-next-line:max-line-length
   constructor(
     private page: Page,
     private routerExtensions: RouterExtensions,
-    private authservice: AuthenticationService
+    private authservice: AuthenticationService,
+    private abc:StorageService
   ) {
     this.user = new User();
     this.user.email = "";
@@ -38,9 +40,11 @@ export class LoginComponent implements OnInit {
     this.authservice.login(this.user).subscribe(
       (employeeLoginResponse) => {
         if (employeeLoginResponse) {
+           let data=JSON.parse(JSON.stringify(employeeLoginResponse));
+           this.abc.setuserInfo(data);
           this.isAuthenticating = false;
           Toast.makeText("Login success!").show();
-          this.routerExtensions.navigate(["/home"], { clearHistory: true });
+          this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
         }
         else{
           this.isAuthenticating = false;

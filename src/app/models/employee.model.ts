@@ -1,0 +1,39 @@
+export class Employee {
+    Id: number;
+    EmployeeId: string;
+    EmployeeTypeId: number;
+    Name: string;
+    PhoneNumber: string;
+    EmailId: string;
+    CurrentAddress: string;
+    ActualDOB: string;
+    OfficialDOB: string;
+    PanCardNumber: string;
+    AadharNumber: string;
+    Designation: number;
+    DesignationName: string;
+    CreatedBy: string;
+    CreatedDate: string;
+    ModifiedBy: string;
+    ModifiedDate: string;
+    Password: string;
+    ManagerId: number;
+    ReportingManager: number;
+    LeaveApprover: number;
+    PermanentAddress: string;
+    DateOfJoining: string;
+    AlternatePhone: string;
+    AdharBase64textString: string;
+    PanBase64textString: string;
+    PassportPhotoBase64textString: string;
+    ProfileImage: string;
+    PanCardImage: string;
+    AdharcardImage: string;
+    AccessID: number;
+    RelievingDate: string;
+    ReportingManagerName: string;
+    LeaveApproverName: string;
+    IsActive: boolean;
+    Url: string;
+  }         
+  
