@@ -27,6 +27,7 @@ export class LeaveBalanceComponent implements OnInit {
   currentYearIndex: number;
   year: string
   model: any;
+  isAuthenticating:boolean=false;
   constructor(private http: HttpClient, private leaveService: LeaveService, private storageService: StorageService) {
     this.userInfo = this.storageService.getuserInfo();
     this.employeeId = this.userInfo.Id;
@@ -37,16 +38,19 @@ export class LeaveBalanceComponent implements OnInit {
     this.getEmpLeaveBalance(this.currentYear);
   }
   getAllEmpLeaveBalYears() {
+    this.isAuthenticating=true;
     this.leaveService.getAllYears()
       .subscribe(
         (allyearsResponse) => {
           if (allyearsResponse) {
+            this.isAuthenticating=false;
             this.allYears = JSON.parse(JSON.stringify(allyearsResponse));
             //this.currentYearIndex = this.allYears.findIndex(year => year == this.currentYear);
             this.selectedyear = this.allYears.findIndex(year => year == this.currentYear);
           }
         },
         (error) => {
+          this.isAuthenticating=false;
           Toast.makeText("Oops! Something went wrong.").show();
           console.error(error);
         }
@@ -57,9 +61,12 @@ export class LeaveBalanceComponent implements OnInit {
     this.leaveService.getLeaveBalance(this.employeeId, year)
       .subscribe(
         (empLeaveBalanceResponse) => {
+          
           if (empLeaveBalanceResponse) {
-            this.empLeaveBalanceInfo = JSON.parse(JSON.stringify(empLeaveBalanceResponse));
-            console.log(this.empLeaveBalanceInfo);
+           
+            let res = empLeaveBalanceResponse[0];    
+            this.empLeaveBalanceInfo = res['EmpLeaveBalance']; 
+          console.log(this.empLeaveBalanceInfo);
           }
         },
         (error) => {

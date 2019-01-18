@@ -1,4 +1,4 @@
-export class LeaveBalance{
+export interface EmpLeaveBalance {
     LeaveBalanceId: number;
     LeaveYear: string;
     LeaveType: number;
@@ -10,5 +10,10 @@ export class LeaveBalance{
     ApplyedLeaves: number;
     UtilizedLeaves: number;
     AvailableLeaves: number;
-    InPrograssLeaves: number;
+    InProgressLeaves: number;
+    RejectedLeaves: number;
+}
+
+export interface LeaveBalance {
+    EmpLeaveBalance: EmpLeaveBalance[];
 }
