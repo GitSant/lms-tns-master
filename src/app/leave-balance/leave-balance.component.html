@@ -1,0 +1,15 @@
+<ActionBar class="action-bar">
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Leave Balance"></Label>
+</ActionBar>
+<StackLayout width="100%" height="100%">
+    <GridLayout class="page page-content">
+        <GridLayout columns="*" (tap)="openDD($event)" style="border:0cm solid black">
+            <DropDown id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
+                (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="80%">
+            </DropDown>
+        </GridLayout>
+    </GridLayout>
+</StackLayout>

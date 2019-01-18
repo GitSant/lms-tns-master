@@ -10,7 +10,6 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
             <Label class="sidedrawer-header-brand" text="User Name"></Label>
             <Label class="footnote" text="username@mail.com"></Label>
         </StackLayout>
-
         <ScrollView row="1">
             <StackLayout class="sidedrawer-content">
                 <!-- <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/leavebalance')"
@@ -44,6 +43,11 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf005;" class="fa"></Label>
                     <Label col="1" text="Featured" class="p-r-10"></Label>
                 </GridLayout> -->
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/leavebalance')"
+                    (tap)="onNavItemTap('/leavebalance')">
+                    <Label col="0" text="&#xf005;" class="fa"></Label>
+                    <Label col="1" text="Leave Balance" class="p-r-10"></Label>
+                </GridLayout>
 
                 <StackLayout class="hr-light"></StackLayout>
                 <!-- Keep Logout section here -->
@@ -51,13 +55,13 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf013;" class="fa"></Label>
                     <Label col="1" text="Settings" class="p-r-10"></Label>
                 </GridLayout> -->
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/logout')" (tap)="onNavItemTap('/logout')">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/logout')"
+                    (tap)="onNavItemTap('/logout')">
                     <Label col="0" text="&#xf011;" class="fa"></Label>
                     <Label col="1" text="Logout" class="p-r-10"></Label>
                 </GridLayout>
             </StackLayout>
         </ScrollView>
     </GridLayout>
-
     <page-router-outlet tkMainContent class="page page-content"></page-router-outlet>
 </RadSideDrawer>

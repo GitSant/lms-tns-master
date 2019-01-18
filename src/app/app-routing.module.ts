@@ -10,7 +10,8 @@ const routes: Routes = [
     { path: "search", loadChildren: "~/app/search/search.module#SearchModule" },
     { path: "featured", loadChildren: "~/app/featured/featured.module#FeaturedModule" },
     { path: "settings", loadChildren: "~/app/settings/settings.module#SettingsModule" },
-    { path: "applyleave", loadChildren: "~/app/apply-leave/apply-leave.module#ApplyLeaveModule" }
+    { path: "applyleave", loadChildren: "~/app/apply-leave/apply-leave.module#ApplyLeaveModule" },
+    { path: "leavebalance", loadChildren: "~/app/leave-balance/leave-balance.module#LeaveBalanceModule" }
 ];
 
 @NgModule({
