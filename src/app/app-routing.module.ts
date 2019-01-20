@@ -11,7 +11,8 @@ const routes: Routes = [
     { path: "featured", loadChildren: "~/app/featured/featured.module#FeaturedModule" },
     { path: "settings", loadChildren: "~/app/settings/settings.module#SettingsModule" },
     { path: "applyleave", loadChildren: "~/app/apply-leave/apply-leave.module#ApplyLeaveModule" },
-    { path: "leavebalance", loadChildren: "~/app/leave-balance/leave-balance.module#LeaveBalanceModule" }
+    { path: "leavebalance", loadChildren: "~/app/leave-balance/leave-balance.module#LeaveBalanceModule" },
+    { path: "geolocation", loadChildren: "~/app/geo-location/geolocation.module#GeoLocationModule"}
 ];
 
 @NgModule({

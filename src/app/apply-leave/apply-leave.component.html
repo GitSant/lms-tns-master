@@ -101,6 +101,27 @@
                         </FormattedString>
                     </Label>
                 </StackLayout>
+                <!-- Leave Reason -->
+                <StackLayout row="7" aria-orientation="vertical">
+                    <Label>
+                        <FormattedString>
+                            <Span text="Leave Reason" fontAttributes="Bold"></Span>
+                            <Span text="*" color="#ff0000"></Span>
+                        </FormattedString>
+                    </Label>
+                    <GridLayout columns="*" (tap)="openleavetypeDD($event)" style="border:0cm solid black">
+                       <TextView #leavereason row="1" class="input" borderWidth="2" margin="0,0,10,0" style.placeholderColor="lightgray" height=100
+                       hint="Leave Reason" backgroundColor="white" padding="0,0,0,10" [(ngModel)]="model.leavereason"
+                       autocorrect="false" autocapitalizationType="none" height="200"></TextView>
+                    </GridLayout>
+                </StackLayout>
+                <!-- Apply button -->
+                <StackLayout row="8" aria-rowspan="2" aria-orientation="vertical">
+                    <GridLayout row="1" rows="auto">
+                        <Button row="0" text="Apply" backgroundColor="blue" color="white" (tap)="onapplytap()">
+                        </Button>
+                    </GridLayout>
+                </StackLayout>
             </GridLayout>
         </ScrollView>
     </GridLayout>

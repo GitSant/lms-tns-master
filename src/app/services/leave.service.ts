@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { Leave } from "../models/leave.model";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -36,11 +37,22 @@ export class LeaveService {
         catchError(this.handleError<any>("GetLeaveTypesError")));
   }
 
-  getavailableleaves(userid: string, leavetypeid: string): Observable<any> {
+  getavailableleaves(userid: number, leavetypeid: string): Observable<any> {
     var url = "https://tekysportalapiqa.azurewebsites.net/api/Leaves/GetAvailableLeaves?employeeId=" + userid + "&LeaveTypeId=" + leavetypeid;
     return this.http.get(url)
       .pipe(map(this.extractResponse),
         catchError(this.handleError<any>("GetAvailableLeavesError")));
+  }
+
+ leaveapplypost(leaveInfo: any) {
+    leaveInfo = JSON.stringify(leaveInfo);
+    let url = "https://tekysportalapiqa.azurewebsites.net/api/Leaves/ApplyLeave";
+
+    return this.http
+    .post<any>(url, JSON.stringify(leaveInfo), httpOptions)
+    .pipe(map(this.extractResponse),
+    catchError(this.handleError<any>("Apply Leave Error"))
+    );
   }
   private extractResponse(response: any) {
     return response;

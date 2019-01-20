@@ -1,42 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
-import * as app from "tns-core-modules/application";
-import * as modalDatepicker from "nativescript-modal-datetimepicker";
-import { LeaveSession } from '../models/session';
-import { ListPicker } from "tns-core-modules/ui/list-picker";
+import { Component, OnInit } from "@angular/core";
 import { DropDown, SelectedIndexChangedEventData } from "nativescript-drop-down";
-import { Page, EventData } from "tns-core-modules/ui/page/page";
-import { ILeaveTypes } from '../models/leavetype.model';
-import { LeaveService } from '../services/leave.service';
+import * as modalDatepicker from "nativescript-modal-datetimepicker";
 import * as Toast from "nativescript-toast";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as app from "tns-core-modules/application";
+import { ListPicker } from "tns-core-modules/ui/list-picker";
+import { EventData, Page } from "tns-core-modules/ui/page/page";
+import { Employee } from "../models/employee.model";
+import { Leave } from "../models/leave.model";
+import { ILeaveTypes } from "../models/leavetype.model";
+import { LeaveSession } from "../models/session";
+import { LeaveService } from "../services/leave.service";
+import { StorageService } from "../services/storage.service";
 
 @Component({
-  selector: 'ns-apply-leave',
-  templateUrl: './apply-leave.component.html',
-  styleUrls: ['./apply-leave.component.css'],
-  moduleId: module.id,
+  selector: "ns-apply-leave",
+  templateUrl: "./apply-leave.component.html",
+  styleUrls: ["./apply-leave.component.css"],
+  moduleId: module.id
 })
 export class ApplyLeaveComponent implements OnInit {
 
   isactive = false;
-  startdate: string;
-  enddate: string;
+  startdate: Date;
+  enddate: Date;
+  session1value: number;
+  session2value: number;
   session1index: number = 0;
   session2index: number = 1;
   leavetypeindex: number;
   model: any = {};
-  leavetypedata: ILeaveTypes[];
+  employeeId: number;
+  userInfo: Employee;
+  leavetypedata: Array<ILeaveTypes>;
   leavetypes: Array<string> = [];
   sessions: Array<string> = ["Session1", "Session2"];
   noOfLeaveDays: number;
   sessioncount: number = 1;
   availableleaves: any;
 
-  constructor(private leaveservice: LeaveService) {
+  constructor(private leaveservice: LeaveService, private storageService: StorageService) {
     this.model.leavetype = 0;
     this.model.session1 = 0;
     this.model.session2 = 1;
-    this.leavetypes.push('--Leave Type--');
+    this.session1value = 1;
+    this.session2value = 2;
+    this.leavetypes.push("--Leave Type--");
+    this.userInfo = this.storageService.getuserInfo();
+    this.employeeId = this.userInfo.Id;
   }
 
   ngOnInit() {
@@ -46,7 +57,7 @@ export class ApplyLeaveComponent implements OnInit {
           if (leavetyperesponse) {
             this.leavetypedata = JSON.parse(JSON.stringify(leavetyperesponse));
             console.log(this.leavetypedata);
-            this.leavetypedata.forEach(element => {
+            this.leavetypedata.forEach((element) => {
               this.leavetypes.push(element.LeaveTypeName);
             });
           }
@@ -58,67 +69,57 @@ export class ApplyLeaveComponent implements OnInit {
       );
   }
 
-  private pickStartDate() {
-    const picker = new modalDatepicker.ModalDatetimepicker();
-    picker.pickDate({
-      title: 'Enter start date.',
-      theme: 'dark',
-      maxDate: new Date(),
-      is24HourView: false
-    }).then((result) => {
-      this.model.startdate = result['day'] + '/' + result['month'] + '/' + result['year'];
-    }).catch((error) => {
-      console.log('DatePickerError: ' + error);
-    });
-  }
-
-  private pickEndDate() {
-    const picker = new modalDatepicker.ModalDatetimepicker();
-    picker.pickDate({
-      title: 'Enter end date.',
-      theme: 'dark',
-      maxDate: new Date(),
-      is24HourView: false
-    }).then((result) => {
-      this.model.enddate = result['day'] + '/' + result['month'] + '/' + result['year'];
-    }).catch((error) => {
-      console.log('DatePickerError: ' + error);
-    });
-  }
-
   opensession1DD(args: EventData) {
-    let page = <Page>args.object;
-    let dropdown = <DropDown>page.getViewById('session1dd');
+    const page = <Page>args.object;
+    const dropdown = <DropDown>page.getViewById("session1dd");
     dropdown.open();
   }
 
   opensession2DD(args: EventData) {
-    let page = <Page>args.object;
-    let dropdown = <DropDown>page.getViewById('session2dd');
+    const page = <Page>args.object;
+    const dropdown = <DropDown>page.getViewById("session2dd");
     dropdown.open();
   }
 
   openleavetypeDD(args: EventData) {
-    let page = <Page>args.object;
-    let dropdown = <DropDown>page.getViewById('leavetypedd');
+    const page = <Page>args.object;
+    const dropdown = <DropDown>page.getViewById("leavetypedd");
     dropdown.open();
   }
 
   sessionOneIndexChanged(args: SelectedIndexChangedEventData) {
     this.session1index = args.newIndex;
-    //this.model.session1 = this.sessions[this.session1index];
+    // console.log("old session1 value: " + this.session1value);
+    this.session1value = this.session1index + 1;
+    this.addsessioncount();
+    // console.log("new session1 value: " + this.session1value);
+  }
+  addsessioncount(): void {
+    // tslint:disable-next-line:max-line-length
+    if ((this.session1value === 1 && this.session2value === 1) || (this.session1value === 2 && this.session2value === 2)) {
+    this.sessioncount = 0.5;
+    console.log("cond1");
+    } else if (this.session1value === 2 && this.session2value === 1) {
+    this.sessioncount = 0;
+    console.log("cond2");
+       } else if (this.session1value === 1 && this.session2value === 2) {
+    this.sessioncount = 1;
+    console.log("cond3");
+       }
+    this.ondatechange();
+    // console.log("cond not");
   }
 
   sessionTwoIndexChanged(args: SelectedIndexChangedEventData) {
     this.session2index = args.newIndex;
-    //this.model.session2 = this.sessions[this.session2index];
+    this.session2value = this.session2index + 1;
+    this.addsessioncount();
   }
 
   leaveTypeIndexChanged(args: SelectedIndexChangedEventData) {
     this.leavetypeindex = args.newIndex;
-    //this.model.leavetype = this.leavetypes[this.leavetypeindex];
     if (this.leavetypeindex !== 0) {
-      this.leaveservice.getavailableleaves("4", this.leavetypeindex.toString())
+      this.leaveservice.getavailableleaves(this.employeeId , this.leavetypeindex.toString())
         .subscribe((availableleavesresponse) => {
           if (availableleavesresponse) {
             this.availableleaves = JSON.parse(JSON.stringify(availableleavesresponse));
@@ -131,19 +132,105 @@ export class ApplyLeaveComponent implements OnInit {
     }
   }
 
+  // tslint:disable-next-line:member-ordering
   ondatechange() {
-    if ((this.model.startDate != undefined && this.model.startDate != "") || (this.model.endDate != undefined && this.model.endDate != "")) {
-      var date2 = new Date(this.model.startDate);
-      var date1 = new Date(this.model.endDate);
-      var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-      let days: number = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    // tslint:disable-next-line:max-line-length
+    if ((this.model.startdate !== undefined && this.model.startdate !== "") && (this.model.enddate !== undefined && this.model.enddate !== "")) {
+      const date2 = new Date(this.startdate);
+      const date1 = new Date(this.enddate);
+      const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+      const days: number = Math.ceil(timeDiff / (1000 * 3600 * 24));
       this.noOfLeaveDays = days;
-      if (this.noOfLeaveDays !== undefined)
-        this.model.leaveDays = this.noOfLeaveDays + this.sessioncount;
+      // console.log(this.noOfLeaveDays +  " " + this.sessioncount);
+      this.model.leaveDays = this.noOfLeaveDays + this.sessioncount;
     }
   }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.showDrawer();
   }
+
+  private pickStartDate() {
+    const picker = new modalDatepicker.ModalDatetimepicker();
+    let month = "";
+    // tslint:disable-next-line:no-unused-expression
+    picker.pickDate({
+      title: "Enter start date.",
+      theme: "dark",
+      maxDate: new Date(),
+      is24HourView: false
+    }).then((result) => {
+      // tslint:disable-next-line:prefer-conditional-expression
+      if (/^\d$/.test(result.month.toString())) {
+        month = ("0" + result.month.toString());
+      } else {
+month = result.month.toString();
+      }
+      this.model.startdate = result.day + "/" + month + "/" + result.year;
+      const monthvalue = +(month) - 1;
+      this.startdate = new Date(result.year, result.month - 1, result.day);
+      // this.startdate = new Date(monthvalue + "/" + result.day + "/" + result.year);
+    }).catch((error) => {
+      console.log("DatePickerError: " + error);
+    });
+  }
+
+  private pickEndDate() {
+    const picker = new modalDatepicker.ModalDatetimepicker();
+    let month = "";
+    picker.pickDate({
+      title: "Enter end date.",
+      theme: "dark",
+      maxDate: new Date(),
+      is24HourView: false
+    }).then((result) => {
+      // tslint:disable-next-line:prefer-conditional-expression
+      if (/^\d$/.test(result.month.toString())) {
+        month = ("0" + result.month.toString());
+      } else {
+month = result.month.toString();
+      }
+      this.model.enddate = result.day + "/" + month + "/" + result.year;
+      const monthvalue = +(month) - 1;
+      this.enddate = new Date(result.year, result.month - 1, result.day);
+      // this.enddate = new Date(monthvalue + "/" + result.day + "/" + result.year);
+    }).catch((error) => {
+      console.log("DatePickerError: " + error);
+    });
+  }
+
+  private onapplytap() {
+    // this.isactive=true;
+    const leaveInfo = new Leave();
+    leaveInfo.EmployeeId = this.employeeId;
+    leaveInfo.LeaveTypeId = +(this.model.leavetype);
+    leaveInfo.LeaveStartDate = this.startdate;
+    leaveInfo.LeaveEndDate = this.enddate;
+    leaveInfo.NumberOfLeaveDays = +(this.model.leaveDays);
+    leaveInfo.LeaveReason = this.model.leavereason;
+    leaveInfo.LeaveStatus = "Waiting for approval";
+    leaveInfo.AdminRemark = null;
+    leaveInfo.CreatedBy = this.employeeId.toString();
+    leaveInfo.ModifiedBy = this.employeeId.toString();
+    leaveInfo.StartDateSession = this.session1value;
+    leaveInfo.EndDateSession = this.session2value;
+    // console.log(leaveInfo);
+    this.leaveservice.leaveapplypost(leaveInfo)
+    .subscribe(
+      (leaveapplyresponse)=>{
+        if(leaveapplyresponse){
+          Toast.makeText("Leave applied sucessfully").show();
+        }
+        else{
+          Toast.makeText("Leave applied failed.").show();
+        }
+      },(error)=>
+      {
+        Toast.makeText("Oops! Somethind went wrong.").show();
+        console.error(error);
+      }
+    );
+ }
+
+  
 }
