@@ -7,9 +7,9 @@ import { LeaveBalance } from '../models/leave-balance.model';
 import { StorageService } from '../services/storage.service';
 import { Employee } from '../models/employee.model';
 import * as Toast from "nativescript-toast";
-import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { EventData, Page } from 'tns-core-modules/ui/page/page';
 import { DropDown, SelectedIndexChangedEventData } from 'nativescript-drop-down';
+import { ListPicker } from "tns-core-modules/ui/list-picker";
 
 @Component({
   selector: 'ns-leave-balance',
@@ -30,7 +30,9 @@ export class LeaveBalanceComponent implements OnInit {
   isAuthenticating:boolean=false;
   constructor(private http: HttpClient, private leaveService: LeaveService, private storageService: StorageService) {
     this.userInfo = this.storageService.getuserInfo();
+    if(this.userInfo){
     this.employeeId = this.userInfo.Id;
+    }
   }
 
   ngOnInit() {
@@ -57,17 +59,17 @@ export class LeaveBalanceComponent implements OnInit {
   }
 
   getEmpLeaveBalance(year: string) {
+    this.isAuthenticating=true;
     this.leaveService.getLeaveBalance(this.employeeId, year)
       .subscribe(
         (empLeaveBalanceResponse) => {
-          
           if (empLeaveBalanceResponse) {
-           
             let res = empLeaveBalanceResponse[0];    
             this.empLeaveBalanceInfo = res['EmpLeaveBalance']; 
           }
         },
         (error) => {
+          this.isAuthenticating=false;
           Toast.makeText("Oops! Something went wrong.").show();
           console.error(error);
         }
@@ -86,6 +88,7 @@ export class LeaveBalanceComponent implements OnInit {
     this.currentYear = this.allYears[index];
     this.currentYearIndex = index;
     this.getEmpLeaveBalance(parseInt(this.currentYear).toString());
+    console.log(this.empLeaveBalanceInfo);
   }
 
   onDrawerButtonTap(): void {

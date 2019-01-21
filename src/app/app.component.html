@@ -7,8 +7,8 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
     <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
         <StackLayout row="0" class="sidedrawer-header">
             <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-            <Label class="sidedrawer-header-brand" text="User Name"></Label>
-            <Label class="footnote" text="username@mail.com"></Label>
+            <!-- <Label class="sidedrawer-header-brand" [text]="name"></Label>
+            <Label class="footnote" text="{{emailId}}"></Label> -->
         </StackLayout>
         <ScrollView row="1">
             <StackLayout class="sidedrawer-content">
@@ -61,8 +61,8 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf013;" class="fa"></Label>
                     <Label col="1" text="Settings" class="p-r-10"></Label>
                 </GridLayout> -->
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/logout')"
-                    (tap)="onNavItemTap('/logout')">
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/login')"
+                    (tap)="onNavItemTap('/login')">
                     <Label col="0" text="&#xf011;" class="fa"></Label>
                     <Label col="1" text="Logout" class="p-r-10"></Label>
                 </GridLayout>
