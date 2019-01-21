@@ -48,7 +48,9 @@ export class ApplyLeaveComponent implements OnInit {
     this.session2value = 2;
     this.leavetypes.push("--Leave Type--");
     this.userInfo = this.storageService.getuserInfo();
+    if(this.userInfo){
     this.employeeId = this.userInfo.Id;
+    }
   }
 
   ngOnInit() {
