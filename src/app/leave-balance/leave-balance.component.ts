@@ -45,7 +45,6 @@ export class LeaveBalanceComponent implements OnInit {
           if (allyearsResponse) {
             this.isAuthenticating=false;
             this.allYears = JSON.parse(JSON.stringify(allyearsResponse));
-            //this.currentYearIndex = this.allYears.findIndex(year => year == this.currentYear);
             this.selectedyear = this.allYears.findIndex(year => year == this.currentYear);
           }
         },
@@ -66,7 +65,6 @@ export class LeaveBalanceComponent implements OnInit {
            
             let res = empLeaveBalanceResponse[0];    
             this.empLeaveBalanceInfo = res['EmpLeaveBalance']; 
-          console.log(this.empLeaveBalanceInfo);
           }
         },
         (error) => {
@@ -88,7 +86,6 @@ export class LeaveBalanceComponent implements OnInit {
     this.currentYear = this.allYears[index];
     this.currentYearIndex = index;
     this.getEmpLeaveBalance(parseInt(this.currentYear).toString());
-    console.log(this.currentYearIndex);
   }
 
   onDrawerButtonTap(): void {

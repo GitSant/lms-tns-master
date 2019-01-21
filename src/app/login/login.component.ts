@@ -19,12 +19,15 @@ export class LoginComponent implements OnInit {
 
   user: User;
   isAuthenticating = false;
+  emailvalidateerror: boolean = false;
+  passwordValidateError:boolean=false;
+  emailformatvalidationerror:boolean=false;
   // tslint:disable-next-line:max-line-length
   constructor(
     private page: Page,
     private routerExtensions: RouterExtensions,
     private authservice: AuthenticationService,
-    private abc:StorageService
+    private abc: StorageService
   ) {
     this.user = new User();
     this.user.email = "";
@@ -32,29 +35,81 @@ export class LoginComponent implements OnInit {
   }
 
   // tslint:disable-next-line:no-empty
-  ngOnInit(): void {}
-
+  ngOnInit(): void { }
   login() {
+    this.validateEmail(this.user.email)
+    this.validatePassword(this.user.password)
+    this.validateEmailFormat(this.user.email)
     this.isAuthenticating = true;
-    this.authservice.login(this.user).subscribe(
-      (employeeLoginResponse) => {
-        if (employeeLoginResponse) {
-           let data=JSON.parse(JSON.stringify(employeeLoginResponse));
-           this.abc.setuserInfo(data);
+    if (this.user.email && this.user.password) {
+      this.authservice.login(this.user).subscribe(
+        (employeeLoginResponse) => {
+          if (employeeLoginResponse) {
+            let data = JSON.parse(JSON.stringify(employeeLoginResponse));
+            this.abc.setuserInfo(data);
+            this.isAuthenticating = false;
+            Toast.makeText("Login success!").show();
+            this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
+          }
+          else {
+            this.isAuthenticating = false;
+            Toast.makeText("Invalid Credentials! Login failed.").show();
+          }
+        },
+        (error) => {
           this.isAuthenticating = false;
-          Toast.makeText("Login success!").show();
-          this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
+          Toast.makeText("Oops! Somethind went wrong.").show();
+          console.error(error);
         }
-        else{
-          this.isAuthenticating = false;
-          Toast.makeText("Invalid Credentials! Login failed.").show();
-        }
-      },
-      (error) => {
-        this.isAuthenticating = false;
-        Toast.makeText("Oops! Somethind went wrong.").show();
-        console.error(error);
-      }
-    );
+      );
+    }
+  }
+  validateform(formvalue: any) {
+    var emailvalue = formvalue.email;
+    var passwordvalue=formvalue.password;
+    if (!this.validateEmail(emailvalue)) {
+      return false;
+    }
+    else if(!this.validatePassword(passwordvalue)){
+      return false;
+    }
+    else if(!this.validateEmailFormat(emailvalue)){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  validateEmail(emailvalue: string): boolean {
+    if (emailvalue) {
+      this.emailvalidateerror = false;
+      return true;
+    }
+    else {
+      this.emailvalidateerror = true;
+      return false;
+    }
+  }
+  validatePassword(passwordvalue:string){
+     if(passwordvalue){
+       this.passwordValidateError=false;
+       return true;
+     }
+     else{
+       this.passwordValidateError=true;
+       return false;
+     }
+  }
+  validateEmailFormat(emailvalue: string):boolean{
+    var regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+    if (!regex.test(emailvalue)) {
+      this.emailformatvalidationerror = true;
+      return false;
+    }
+    else {
+      this.emailformatvalidationerror = false;
+      return true;
+    }
   }
 }
+
