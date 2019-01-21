@@ -1,10 +1,12 @@
+import { Moment } from "moment";
+
 export class Leave {
     LeaveId: number;
     EmployeeId: number;
     LeaveTypeId: number;
     LeaveReason: string;
-    LeaveStartDate: Date;
-    LeaveEndDate: Date;
+    LeaveStartDate: string;
+    LeaveEndDate: string;
     NumberOfLeaveDays: number;
     LeaveStatus: string;
     AdminRemark: string;

@@ -45,7 +45,6 @@ export class LeaveService {
   }
 
  leaveapplypost(leaveInfo: any) {
-    leaveInfo = JSON.stringify(leaveInfo);
     let url = "https://tekysportalapiqa.azurewebsites.net/api/Leaves/ApplyLeave";
 
     return this.http
