@@ -1,2 +1,12 @@
 /* Add mobile styles for the component here.  */
 /* Apply leave css */
+Label{
+    color: black;
+    font-weight: 300;
+    font-family:  Calibri;
+    font-size: 14px;
+    padding:5,0,0,0
+}
+.lbl{
+    font-weight: 400;
+}
