@@ -4,38 +4,39 @@
             <ActivityIndicator color="green" [busy]="isAuthenticating" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
         </GridLayout>
         <GridLayout row="0" rows="*">
-            <GridLayout padding="1,1,1,1" backgroundColor="#0080ff" margin="0,10,0,10" verticalAlignment="center"
-                horizontalAlignment="center">
-                <GridLayout row="0" rows="auto, auto, auto,auto,auto" verticalAlignment="top" backgroundColor="white">
-                    <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="20,25,10,25">
-                        <GridLayout row="0" rows="auto, auto" backgroundColor="white">
-                            <TextField #email="ngModel" row="1" class="input" style.placeholderColor="lightgray" height=30
+            <GridLayout padding="1,1,1,1" row="0" rows="*" backgroundColor="#0080ff" margin="0,10,0,10"
+                verticalAlignment="center" horizontalAlignment="center">
+                <GridLayout row="0" rows="auto, auto, auto, auto, auto" backgroundColor="white" verticalAlignment="top">
+                    <GridLayout row="0" rows="auto" backgroundColor="white">
+                        <GridLayout rows="auto" padding="1,1,1,1" margin="20,25,0,25" backgroundColor="lightgray">
+                            <TextField #email="ngModel" row="0" class="input" style.placeholderColor="lightgray" height=30
                                 hint="Email Id" backgroundColor="white" padding="0,0,0,10" keyboardType="email"
-                                [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none" required>
+                                [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none" required
+                                style="font-family:  Calibri;font-size: 15px;">
                             </TextField>
                         </GridLayout>
                     </GridLayout>
-                    <GridLayout class="input-field" row="1" rows="auto, auto">
+                    <GridLayout row="1">
                         <StackLayout *ngIf="(email.errors) && (email.dirty || email.touched)||(emailvalidateerror)||(emailformatvalidationerror && !email.invalid)">
-                            <Label *ngIf="email.errors.required" text="Email Id is required." padding="0,0,0,25"></Label>
+                            <Label *ngIf="email.errors.required" text="Email Id is required." padding="0,0,5,25" color="red"></Label>
                         </StackLayout>
                     </GridLayout>
-                    <GridLayout row="2" rows="auto, auto" backgroundColor="white">
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,25,10,25">
+                    <GridLayout row="2" rows="auto" backgroundColor="white">
+                        <GridLayout rows="auto" padding="1,1,1,1" backgroundColor="lightgray" margin="10,25,0,25">
                             <TextField #password="ngModel" row="1" col="0" class="input" style.placeholderColor="lightgray"
                                 height=30 hint="Password" backgroundColor="white" padding="0,0,0,10" secure="true"
-                                [(ngModel)]="user.password" required>
+                                [(ngModel)]="user.password" required style="font-family:  Calibri;font-size: 15px;">
                             </TextField>
                         </GridLayout>
                     </GridLayout>
-                    <GridLayout class="input-field" row="3" rows="auto, auto">
+                    <GridLayout row="3" rows="auto">
                         <StackLayout *ngIf="password.errors && (password.dirty || password.touched)||(passwordValidateError)">
-                            <Label *ngIf="password.errors.required" text="Password is required." padding="0,0,0,25"></Label>
+                            <Label *ngIf="password.errors.required" text="Password is required." padding="0,0,5,25" color="red"></Label>
                         </StackLayout>
                     </GridLayout>
                     <GridLayout row="4" rows="auto">
                         <Button row="0" text="LogIn" backgroundColor="#0080ff" color="white" (tap)="login()" width="40%"
-                            margin="0,0,10,0">
+                            margin="10,0,10,0">
                         </Button>
                     </GridLayout>
                 </GridLayout>
