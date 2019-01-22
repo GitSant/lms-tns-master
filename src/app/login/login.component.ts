@@ -36,6 +36,8 @@ export class LoginComponent implements OnInit {
     this.user.email = "";
     this.user.password = "";
     this.userInfo=this.storageService.getuserInfo();
+    // this.user.email = "saptagiri.k@tekyslab.com";
+    // this.user.password = "Tekys@123";
   }
 
   // tslint:disable-next-line:no-empty

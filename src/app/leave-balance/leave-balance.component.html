@@ -15,12 +15,12 @@
                 <label class="lbl" text="Select Year" row="0" margin="0,0,0,10"></label>
                 <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,10,5,10">
                     <GridLayout columns="auto, *" (tap)="openDD($event)" style="border:0cm solid black" backgroundColor="white">
-                        <DropDown id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
+                        <!-- <DropDown id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
                             (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="100%" margin="2,0,2,10">
-                        </DropDown>
-                        <!-- <ListPicker id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
+                        </DropDown> -->
+                        <ListPicker id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
                             (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="100%" margin="2,0,2,10">
-                        </ListPicker> -->
+                        </ListPicker>
                     </GridLayout>
                 </GridLayout>
             </StackLayout>
