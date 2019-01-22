@@ -7,6 +7,7 @@ import * as app from "tns-core-modules/application";
 import { StorageService } from "./services/storage.service";
 import { Employee } from "./models/employee.model";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
+import * as Toast from "nativescript-toast";
 
 @Component({
     moduleId: module.id,
@@ -23,23 +24,24 @@ export class AppComponent implements OnInit {
     constructor(private router: Router, private routerExtensions: RouterExtensions, private storageService: StorageService) {
         this.userInfo=this.storageService.getuserInfo();
         if(this.userInfo){
-        // this.emailId=this.userInfo.EmailId;
-        // this.name=this.userInfo.Name;
+         this.emailId=this.userInfo.EmailId;
+        this.name=this.userInfo.Name;
         }
         // Use the component constructor to inject services.
     
     }
 
     ngOnInit(): void {
-        app.android.on(app.AndroidApplication.activityBackPressedEvent,(args:AndroidActivityBackPressedEventData)=>
-        {
-            if(this.userInfo==undefined){
-                  args.cancel=true;
-            }
-            else{
-                args.cancel=false;
-            }
-        })
+        // app.android.on(app.AndroidApplication.activityBackPressedEvent,(args:AndroidActivityBackPressedEventData)=>
+        // {
+        //     if(this.userInfo==undefined){
+        //         Toast.makeText("You are logged out, Please Login.").show();
+        //           args.cancel=true;
+        //     }
+        //     else{
+        //         args.cancel=false;
+        //     }
+        // })
         this._activatedUrl = "/home";
         this._sideDrawerTransition = new SlideInOnTopTransition();
 
@@ -59,14 +61,21 @@ export class AppComponent implements OnInit {
 
     onNavItemTap(navItemRoute: string): void {
        // this.storageService.setuserInfo(undefined);
-        this.routerExtensions.navigate(["/login"])
+        //this.routerExtensions.navigate(["/login"]);
+        //Toast.makeText("You are logged out, Please Login.").show();
         this.routerExtensions.navigate([navItemRoute], {
             transition: {
                 name: "fade"
             }
         });
-
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.closeDrawer();
+    }
+    onNavItem(navItemRoute: string):void{
+        this.routerExtensions.navigate(["/login"]);
+    //Toast.makeText("You are logged out, Please Login.").show();
+    
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.closeDrawer();
     }
 }

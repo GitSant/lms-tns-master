@@ -84,8 +84,10 @@ export class LeaveBalanceComponent implements OnInit {
   }
 
   yearIndexChanged(args: SelectedIndexChangedEventData) {
+    let picker = <ListPicker>args.object;
     var index = args.newIndex;
-    this.currentYear = this.allYears[index];
+
+    this.currentYear = this.allYears[picker.selectedIndex];
     this.currentYearIndex = index;
     this.getEmpLeaveBalance(parseInt(this.currentYear).toString());
     console.log(this.empLeaveBalanceInfo);

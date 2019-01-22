@@ -13,6 +13,7 @@ import { ILeaveTypes } from "../models/leavetype.model";
 import { LeaveSession } from "../models/session";
 import { LeaveService } from "../services/leave.service";
 import { StorageService } from "../services/storage.service";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   selector: "ns-apply-leave",
@@ -40,7 +41,7 @@ export class ApplyLeaveComponent implements OnInit {
   sessioncount: number = 1;
   availableleaves: any;
 
-  constructor(private leaveservice: LeaveService, private storageService: StorageService) {
+  constructor(private leaveservice: LeaveService, private storageService: StorageService, private routerExtentions:RouterExtensions) {
     this.model.leavetype = 0;
     this.model.session1 = 0;
     this.model.session2 = 1;
@@ -59,7 +60,6 @@ export class ApplyLeaveComponent implements OnInit {
         (leavetyperesponse) => {
           if (leavetyperesponse) {
             this.leavetypedata = JSON.parse(JSON.stringify(leavetyperesponse));
-            console.log(this.leavetypedata);
             this.leavetypedata.forEach((element) => {
               this.leavetypes.push(element.LeaveTypeName);
             });
@@ -92,10 +92,8 @@ export class ApplyLeaveComponent implements OnInit {
 
   sessionOneIndexChanged(args: SelectedIndexChangedEventData) {
     this.session1index = args.newIndex;
-    // console.log("old session1 value: " + this.session1value);
     this.session1value = this.session1index + 1;
     this.addsessioncount();
-    // console.log("new session1 value: " + this.session1value);
   }
   addsessioncount(): void {
     // tslint:disable-next-line:max-line-length
@@ -110,7 +108,6 @@ export class ApplyLeaveComponent implements OnInit {
       console.log("cond3");
     }
     this.ondatechange();
-    // console.log("cond not");
   }
 
   sessionTwoIndexChanged(args: SelectedIndexChangedEventData) {
@@ -144,7 +141,6 @@ export class ApplyLeaveComponent implements OnInit {
       const timeDiff = Math.abs(date2.getTime() - date1.getTime());
       const days: number = Math.ceil(timeDiff / (1000 * 3600 * 24));
       this.noOfLeaveDays = days;
-      // console.log(this.noOfLeaveDays +  " " + this.sessioncount);
       this.model.leaveDays = this.noOfLeaveDays + this.sessioncount;
     }
   }
@@ -156,17 +152,16 @@ export class ApplyLeaveComponent implements OnInit {
   private pickStartDate() {
     const picker = new modalDatepicker.ModalDatetimepicker();
     let month:string = "";
+    let day:string= "";
     // tslint:disable-next-line:no-unused-expression
     picker.pickDate({
-      title: "Enter start date.",
-      theme: "dark",
-      maxDate: new Date(),
-      is24HourView: false
+      theme: "light",
     }).then((result) => {
       // tslint:disable-next-line:prefer-conditional-expression
+      day=this.appendzero(result.day.toString());
       month=this.appendzero(result.month.toString());
-      this.model.startdate = result.day + "/" + month + "/" + result.year;
-      this.startdate = new Date(result.year.toString() + "-" + month + "-" + result.day.toString());
+      this.model.startdate = day + "/" + month + "/" + result.year;
+      this.startdate = new Date(result.year.toString() + "-" + month + "-" + day);
       console.log(this.startdate);
     }).catch((error) => {
       console.log("DatePickerError: " + error);
@@ -176,16 +171,15 @@ export class ApplyLeaveComponent implements OnInit {
   private pickEndDate() {
     const picker = new modalDatepicker.ModalDatetimepicker();
     let month:string = "";
+    let day:string= "";
     picker.pickDate({
-      title: "Enter end date.",
-      theme: "dark",
-      maxDate: new Date(),
-      is24HourView: false
+      theme: "light",
     }).then((result) => {
       // tslint:disable-next-line:prefer-conditional-expression
+      day=this.appendzero(result.day.toString());
       month=this.appendzero(result.month.toString());
-      this.model.enddate = result.day + "/" + month + "/" + result.year;
-      this.enddate = new Date(result.year.toString() + "-" + month + "-" + result.day.toString());
+      this.model.enddate = day + "/" + month + "/" + result.year;
+      this.enddate = new Date(result.year.toString() + "-" + month + "-" + day);
       console.log(this.enddate);
     }).catch((error) => {
       console.log("DatePickerError: " + error);
@@ -202,12 +196,12 @@ export class ApplyLeaveComponent implements OnInit {
     return result;
   }
   onapplytap() {
-    // this.isactive=true;
+    this.isactive=true;
     const leaveInfo = new Leave();
     leaveInfo.EmployeeId = this.employeeId;
     leaveInfo.LeaveTypeId = +(this.model.leavetype);
-    leaveInfo.LeaveStartDate = new Date(this.startdate).toISOString();                    //moment("2019-01-10");
-    leaveInfo.LeaveEndDate = new Date(this.enddate).toISOString();                       //moment("2019-01-15");
+    leaveInfo.LeaveStartDate = new Date(this.startdate).toISOString();                    
+    leaveInfo.LeaveEndDate = new Date(this.enddate).toISOString();                       
     leaveInfo.NumberOfLeaveDays = +(this.model.leaveDays);
     leaveInfo.LeaveReason = this.model.leavereason; this.enddate
     leaveInfo.LeaveStatus = "Waiting for approval";
@@ -216,12 +210,16 @@ export class ApplyLeaveComponent implements OnInit {
     leaveInfo.ModifiedBy = this.employeeId.toString();
     leaveInfo.StartDateSession = this.session1value;
     leaveInfo.EndDateSession = this.session2value;
-    console.log(leaveInfo);
+    //console.log(leaveInfo);
     this.leaveservice.leaveapplypost(leaveInfo)
     .subscribe(
       (leaveapplyresponse)=>{
         if(leaveapplyresponse){
           Toast.makeText("Leave applied sucessfully").show();
+          this.isactive=true;
+          this.routerExtentions.navigate(['/leavebalance'], {
+            transition: { name: "flip" }
+          });
         }
         else{
           Toast.makeText("Leave applied failed.").show();
