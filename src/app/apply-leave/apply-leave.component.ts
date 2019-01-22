@@ -4,7 +4,6 @@ import * as modalDatepicker from "nativescript-modal-datetimepicker";
 import * as Toast from "nativescript-toast";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
-import * as moment from "moment";
 import { ListPicker } from "tns-core-modules/ui/list-picker";
 import { EventData, Page } from "tns-core-modules/ui/page/page";
 import { Employee } from "../models/employee.model";

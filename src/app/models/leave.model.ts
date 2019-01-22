@@ -1,5 +1,3 @@
-import { Moment } from "moment";
-
 export class Leave {
     LeaveId: number;
     EmployeeId: number;

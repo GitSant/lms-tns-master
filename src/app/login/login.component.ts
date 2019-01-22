@@ -7,14 +7,9 @@ import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
 import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
-<<<<<<< HEAD
-import { AndroidActivityBackPressedEventData } from "tns-core-modules/application";
-import { Employee } from "../models/employee.model";
-=======
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Employee } from "../models/employee.model";
 import { AndroidActivityBackPressedEventData } from "tns-core-modules/application";
->>>>>>> 6582f207c63693e5808d53a05346ba90ed9fcea6
 
 @Component({
   selector: "Login",
@@ -29,14 +24,8 @@ export class LoginComponent implements OnInit {
   userInfo:Employee;
   isAuthenticating = false;
   emailvalidateerror: boolean = false;
-<<<<<<< HEAD
-  passwordValidateError:boolean=false;
-  emailformatvalidationerror:boolean=false;
-  userInfo:Employee;
-=======
   passwordValidateError: boolean = false;
   emailformatvalidationerror: boolean = false;
->>>>>>> 6582f207c63693e5808d53a05346ba90ed9fcea6
   // tslint:disable-next-line:max-line-length
   constructor(
     private page: Page,
@@ -45,27 +34,16 @@ export class LoginComponent implements OnInit {
     private storageService: StorageService
   ) {
     this.user = new User();
-<<<<<<< HEAD
-    this.user.email = "";
-    this.user.password = "";
-    this.userInfo=this.storageService.getuserInfo();
-    // this.user.email = "saptagiri.k@tekyslab.com";
-    // this.user.password = "Tekys@123";
-=======
     // this.user.email = "saptagiri.k@tekyslab.com";
     // this.user.password = "Tekys@123";
     this.user.email = "";
     this.user.password = "";
     this.userInfo=this.storageService.getuserInfo();
->>>>>>> 6582f207c63693e5808d53a05346ba90ed9fcea6
   }
 
   // tslint:disable-next-line:no-empty
   ngOnInit(): void {
-<<<<<<< HEAD
-=======
     this.page.actionBarHidden = true;
->>>>>>> 6582f207c63693e5808d53a05346ba90ed9fcea6
     app.android.on(app.AndroidApplication.activityBackPressedEvent,(args:AndroidActivityBackPressedEventData)=>
     {
         if(this.userInfo==undefined){
@@ -76,12 +54,7 @@ export class LoginComponent implements OnInit {
             args.cancel=false;
         }
     })
-<<<<<<< HEAD
    }
-=======
-  
-  }
->>>>>>> 6582f207c63693e5808d53a05346ba90ed9fcea6
   login() {
     this.validateEmail(this.user.email)
     this.validatePassword(this.user.password)
