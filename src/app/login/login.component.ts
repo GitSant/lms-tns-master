@@ -7,6 +7,8 @@ import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
 import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
+import { AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+import { Employee } from "../models/employee.model";
 
 @Component({
   selector: "Login",
@@ -22,20 +24,33 @@ export class LoginComponent implements OnInit {
   emailvalidateerror: boolean = false;
   passwordValidateError:boolean=false;
   emailformatvalidationerror:boolean=false;
+  userInfo:Employee;
   // tslint:disable-next-line:max-line-length
   constructor(
     private page: Page,
     private routerExtensions: RouterExtensions,
     private authservice: AuthenticationService,
-    private abc: StorageService
+    private storageService: StorageService
   ) {
     this.user = new User();
     this.user.email = "";
     this.user.password = "";
+    this.userInfo=this.storageService.getuserInfo();
   }
 
   // tslint:disable-next-line:no-empty
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    app.android.on(app.AndroidApplication.activityBackPressedEvent,(args:AndroidActivityBackPressedEventData)=>
+    {
+        if(this.userInfo==undefined){
+           // Toast.makeText("You are logged out, Please Login.").show();
+              args.cancel=true;
+        }
+        else{
+            args.cancel=false;
+        }
+    })
+   }
   login() {
     this.validateEmail(this.user.email)
     this.validatePassword(this.user.password)
@@ -46,7 +61,7 @@ export class LoginComponent implements OnInit {
         (employeeLoginResponse) => {
           if (employeeLoginResponse) {
             let data = JSON.parse(JSON.stringify(employeeLoginResponse));
-            this.abc.setuserInfo(data);
+            this.storageService.setuserInfo(data);
             this.isAuthenticating = false;
             Toast.makeText("Login success!").show();
             this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
