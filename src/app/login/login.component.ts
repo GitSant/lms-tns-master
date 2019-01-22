@@ -7,6 +7,9 @@ import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
 import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import { Employee } from "../models/employee.model";
+import { AndroidActivityBackPressedEventData } from "tns-core-modules/application";
 
 @Component({
   selector: "Login",
@@ -18,24 +21,41 @@ export class LoginComponent implements OnInit {
   @ViewChild("email") emailField: ElementRef;
 
   user: User;
+  userInfo:Employee;
   isAuthenticating = false;
   emailvalidateerror: boolean = false;
-  passwordValidateError:boolean=false;
-  emailformatvalidationerror:boolean=false;
+  passwordValidateError: boolean = false;
+  emailformatvalidationerror: boolean = false;
   // tslint:disable-next-line:max-line-length
   constructor(
     private page: Page,
     private routerExtensions: RouterExtensions,
     private authservice: AuthenticationService,
-    private abc: StorageService
+    private storageService: StorageService
   ) {
     this.user = new User();
-    this.user.email = "saptagiri.k@tekyslab.com";
-    this.user.password = "Tekys@123";
+    // this.user.email = "saptagiri.k@tekyslab.com";
+    // this.user.password = "Tekys@123";
+    this.user.email = "";
+    this.user.password = "";
+    this.userInfo=this.storageService.getuserInfo();
   }
 
   // tslint:disable-next-line:no-empty
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.page.actionBarHidden = true;
+    app.android.on(app.AndroidApplication.activityBackPressedEvent,(args:AndroidActivityBackPressedEventData)=>
+    {
+        if(this.userInfo==undefined){
+           // Toast.makeText("You are logged out, Please Login.").show();
+              args.cancel=true;
+        }
+        else{
+            args.cancel=false;
+        }
+    })
+  
+  }
   login() {
     this.validateEmail(this.user.email)
     this.validatePassword(this.user.password)
@@ -46,7 +66,7 @@ export class LoginComponent implements OnInit {
         (employeeLoginResponse) => {
           if (employeeLoginResponse) {
             let data = JSON.parse(JSON.stringify(employeeLoginResponse));
-            this.abc.setuserInfo(data);
+            this.storageService.setuserInfo(data);
             this.isAuthenticating = false;
             Toast.makeText("Login success!").show();
             this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
@@ -66,14 +86,14 @@ export class LoginComponent implements OnInit {
   }
   validateform(formvalue: any) {
     var emailvalue = formvalue.email;
-    var passwordvalue=formvalue.password;
+    var passwordvalue = formvalue.password;
     if (!this.validateEmail(emailvalue)) {
       return false;
     }
-    else if(!this.validatePassword(passwordvalue)){
+    else if (!this.validatePassword(passwordvalue)) {
       return false;
     }
-    else if(!this.validateEmailFormat(emailvalue)){
+    else if (!this.validateEmailFormat(emailvalue)) {
       return false;
     }
     else {
@@ -90,17 +110,17 @@ export class LoginComponent implements OnInit {
       return false;
     }
   }
-  validatePassword(passwordvalue:string){
-     if(passwordvalue){
-       this.passwordValidateError=false;
-       return true;
-     }
-     else{
-       this.passwordValidateError=true;
-       return false;
-     }
+  validatePassword(passwordvalue: string) {
+    if (passwordvalue) {
+      this.passwordValidateError = false;
+      return true;
+    }
+    else {
+      this.passwordValidateError = true;
+      return false;
+    }
   }
-  validateEmailFormat(emailvalue: string):boolean{
+  validateEmailFormat(emailvalue: string): boolean {
     var regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
     if (!regex.test(emailvalue)) {
       this.emailformatvalidationerror = true;

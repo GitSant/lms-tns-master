@@ -1,10 +1,13 @@
 import { Component, NgZone } from "@angular/core";
 import * as Geolocation from "nativescript-geolocation";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as app from "tns-core-modules/application";
 
 @Component({
     selector: "GeoLocation",
     moduleId: module.id,
-    templateUrl: "./geolocation.component.html"
+    templateUrl: "./geolocation.component.html",
+    styleUrls: ['./geolocation.component.css'],
 })
 export class GeoLocationComponent {
 
@@ -17,6 +20,10 @@ export class GeoLocationComponent {
         this.longitude = 0;
     }
 
+    onDrawerButtonTap(): void {
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.showDrawer();
+    }
     // tslint:disable-next-line:member-ordering
     updateLocation() {
         this.getDeviceLocation().then((result) => {
@@ -30,7 +37,7 @@ export class GeoLocationComponent {
     // tslint:disable-next-line:member-ordering
     startWatchingLocation() {
         this.watchId = Geolocation.watchLocation((location) => {
-            if(location) {
+            if (location) {
                 this.zone.run(() => {
                     this.latitude = location.latitude;
                     this.longitude = location.longitude;
@@ -51,7 +58,7 @@ export class GeoLocationComponent {
     private getDeviceLocation(): Promise<any> {
         return new Promise((resolve, reject) => {
             Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({timeout: 10000}).then((location) => {
+                Geolocation.getCurrentLocation({ timeout: 10000 }).then((location) => {
                     resolve(location);
                 }).catch((error) => {
                     reject(error);
