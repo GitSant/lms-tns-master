@@ -1,7 +1,11 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="User Login" color="white"></Label>
+</ActionBar>
+
 <StackLayout width="100%" height="100%">
     <GridLayout rows="*, auto">
         <GridLayout row="0" rows="auto" rows="*">
-            <ActivityIndicator color="green" [busy]="isAuthenticating" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+            <ActivityIndicator color="green" [busy]="showindicator" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
         </GridLayout>
         <GridLayout row="0" rows="*">
             <GridLayout padding="1,1,1,1" row="0" rows="*" backgroundColor="#0080ff" margin="0,10,0,10"
@@ -12,13 +16,17 @@
                             <TextField #email="ngModel" row="0" class="input" style.placeholderColor="lightgray" height=30
                                 hint="Email Id" backgroundColor="white" padding="0,0,0,10" keyboardType="email"
                                 [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none" required
-                                style="font-family:  Calibri;font-size: 15px;">
+                                style="font-family:  Calibri;font-size: 15px;" (blur)="validatemail(user.email)">
                             </TextField>
                         </GridLayout>
                     </GridLayout>
                     <GridLayout row="1">
-                        <StackLayout *ngIf="(email.errors) && (email.dirty || email.touched)||(emailvalidateerror)||(emailformatvalidationerror && !email.invalid)">
-                            <Label *ngIf="email.errors.required" text="Email Id is required." padding="0,0,5,25" color="red"></Label>
+                        <StackLayout *ngIf="(email.errors) && ((emailvalidateerror)||(!email.invalid))">
+                            <Label *ngIf="email.errors?.required" text="Email Id is required." padding="0,0,5,25" color="red"></Label>
+                        </StackLayout>
+                        <StackLayout *ngIf="email.valid">
+                            <Label *ngIf="emailformatvalidationerror" text="Enter a valid Email Id." padding="0,0,5,25"
+                                color="red"></Label>
                         </StackLayout>
                     </GridLayout>
                     <GridLayout row="2" rows="auto" backgroundColor="white">
@@ -30,12 +38,13 @@
                         </GridLayout>
                     </GridLayout>
                     <GridLayout row="3" rows="auto">
-                        <StackLayout *ngIf="password.errors && (password.dirty || password.touched)||(passwordValidateError)">
-                            <Label *ngIf="password.errors.required" text="Password is required." padding="0,0,5,25" color="red"></Label>
+                        <StackLayout *ngIf="(password.errors) && ((passwordValidateError)||(!password.invalid))">
+                            <Label *ngIf="password.errors?.required" text="Password is required." padding="0,0,5,25"
+                                color="red"></Label>
                         </StackLayout>
                     </GridLayout>
                     <GridLayout row="4" rows="auto">
-                        <Button row="0" text="LogIn" backgroundColor="#0080ff" color="white" (tap)="login()" width="40%"
+                        <Button row="0" text="LogIn" backgroundColor="#0080ff" color="white" (tap)="login()" width="35%"
                             margin="10,0,10,0">
                         </Button>
                     </GridLayout>

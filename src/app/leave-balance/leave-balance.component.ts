@@ -25,7 +25,7 @@ export class LeaveBalanceComponent implements OnInit {
   userInfo: Employee;
   empLeaveBalanceInfo: LeaveBalance;
   currentYearIndex: number;
-  year: string
+  year: string;
   model: any;
   isAuthenticating:boolean=false;
   constructor(private http: HttpClient, private leaveService: LeaveService, private storageService: StorageService) {
@@ -74,7 +74,6 @@ export class LeaveBalanceComponent implements OnInit {
           console.error(error);
         }
       );
-      
   }
 
   public openDD(args: EventData) {
@@ -86,7 +85,6 @@ export class LeaveBalanceComponent implements OnInit {
   yearIndexChanged(args: SelectedIndexChangedEventData) {
     let picker = <ListPicker>args.object;
     var index = args.newIndex;
-
     this.currentYear = this.allYears[picker.selectedIndex];
     this.currentYearIndex = index;
     this.getEmpLeaveBalance(parseInt(this.currentYear).toString());

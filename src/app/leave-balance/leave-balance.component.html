@@ -2,54 +2,55 @@
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
-    <Label class="action-bar-title" text="Leave Balance"color="white"></Label>
+    <Label class="action-bar-title" text="Leave Balance" color="white"></Label>
 </ActionBar>
 <GridLayout padding="1,1,1,1" backgroundColor="#0080ff" margin="5">
-<StackLayout width="100%" height="100%" class="page page-content">
-    <GridLayout rows="*,auto">
-        <GridLayout row="0" rows="*">
-            <ActivityIndicator color="green" [busy]="isAuthenticating" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
-        </GridLayout>
-        <GridLayout row="0" rows="auto,*" ,columns="auto,auto">
-            <StackLayout row="0" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,5,0">
-                <label class="lbl" text="Select Year" row="0" margin="0,0,0,10"></label>
-                <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,10,5,10">
-                    <GridLayout columns="auto, *" (tap)="openDD($event)" style="border:0cm solid black" backgroundColor="white">
-                        <!-- <DropDown id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
+    <StackLayout width="100%" height="100%" class="page page-content">
+        <GridLayout rows="*,auto">
+            <GridLayout row="0" rows="*">
+                <ActivityIndicator color="green" [busy]="isAuthenticating" horizontalAlignment="center"
+                    verticalAlignment="center"></ActivityIndicator>
+            </GridLayout>
+            <GridLayout row="0" rows="auto,*" ,columns="auto,auto">
+                <StackLayout row="0" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,5,0">
+                    <label class="lbl" text="Select Year" row="0" margin="0,0,0,10"></label>
+                    <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,10,5,10">
+                        <GridLayout (tap)="openDD($event)" style="border:0cm solid black"
+                            backgroundColor="white">
+                            <DropDown id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
+                                (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="100%" height="33"></DropDown>
+                            <!-- <ListPicker id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
                             (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="100%" margin="2,0,2,10">
-                        </DropDown> -->
-                        <ListPicker id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
-                            (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="100%" margin="2,0,2,10">
-                        </ListPicker>
-                    </GridLayout>
-                </GridLayout>
-            </StackLayout>
-            <StackLayout row="1" aria-orientation="vertical" padding="0,20,0,20" columns="auto,auto" >
-                <ListView [items]="empLeaveBalanceInfo" separatorColor="transparent" margin="2,10,2,10" class="list-group">
-                    <ng-template let-emp="item">
-                        <GridLayout padding="1,1,0,1" backgroundColor="lightgray" margin="5,0,5,0">
-                            <GridLayout columns="150,auto" rows="auto,auto,auto,auto,auto,auto,auto" width="300"
-                                backgroundColor="white" padding="0,0,0,10">
-                                <Label class="lbl" text="Type" col="0" row="0" padding="5,0,0,0"></Label>
-                                <Label [text]="emp.LeaveTypeName" col="1" row="0"></Label>
-                                <Label class="lbl" text="Total" col="0" row="1"></Label>
-                                <Label [text]="emp.TotalLeaves" col="1" row="1"></Label>
-                                <Label class="lbl" text="Applied" col="0" row="2"></Label>
-                                <Label [text]="emp.ApplyedLeaves" col="1" row="2"></Label>
-                                <Label class="lbl" text="Utilized" col="0" row="3"></Label>
-                                <Label [text]="emp.UtilizedLeaves" col="1" row="3"></Label>
-                                <Label class="lbl" text="Available" col="0" row="4"></Label>
-                                <Label [text]="emp.AvailableLeaves" col="1" row="4"></Label>
-                                <Label class="lbl" text="In Progress" col="0" row="5"></Label>
-                                <Label [text]="emp.InProgressLeaves" col="1" row="5"></Label>
-                                <Label class="lbl" text="Rejected" col="0" row="6"></Label>
-                                <Label [text]="emp.RejectedLeaves" col="1" row="6"></Label>
-                            </GridLayout>
+                        </ListPicker> -->
                         </GridLayout>
-                    </ng-template>
-                </ListView>
-            </StackLayout>
+                    </GridLayout>
+                </StackLayout>
+                <StackLayout row="1" aria-orientation="vertical" padding="0,20,0,20" columns="auto,auto">
+                    <ListView [items]="empLeaveBalanceInfo" separatorColor="transparent" margin="2,10,2,10" class="list-group">
+                        <ng-template let-emp="item">
+                            <GridLayout padding="1,1,0,1" backgroundColor="lightgray" margin="5,0,5,0">
+                                <GridLayout columns="150,auto" rows="auto,auto,auto,auto,auto,auto,auto" width="300"
+                                    backgroundColor="white" padding="0,0,0,10">
+                                    <Label text="Type" col="0" row="0" padding="5,0,0,0"></Label>
+                                    <Label class="lbl" [text]="emp.LeaveTypeName" col="1" row="0"></Label>
+                                    <Label text="Total" col="0" row="1"></Label>
+                                    <Label class="lbl" [text]="emp.TotalLeaves" col="1" row="1"></Label>
+                                    <Label text="Applied" col="0" row="2"></Label>
+                                    <Label class="lbl" [text]="emp.ApplyedLeaves" col="1" row="2"></Label>
+                                    <Label text="Utilized" col="0" row="3"></Label>
+                                    <Label class="lbl" [text]="emp.UtilizedLeaves" col="1" row="3"></Label>
+                                    <Label text="Available" col="0" row="4"></Label>
+                                    <Label class="lbl" [text]="emp.AvailableLeaves" col="1" row="4"></Label>
+                                    <Label text="In Progress" col="0" row="5"></Label>
+                                    <Label class="lbl" [text]="emp.InProgressLeaves" col="1" row="5"></Label>
+                                    <Label text="Rejected" col="0" row="6"></Label>
+                                    <Label class="lbl" [text]="emp.RejectedLeaves" col="1" row="6"></Label>
+                                </GridLayout>
+                            </GridLayout>
+                        </ng-template>
+                    </ListView>
+                </StackLayout>
+            </GridLayout>
         </GridLayout>
-    </GridLayout>
-</StackLayout>
+    </StackLayout>
 </GridLayout>
