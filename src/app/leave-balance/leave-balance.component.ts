@@ -27,7 +27,7 @@ export class LeaveBalanceComponent implements OnInit {
   currentYearIndex: number;
   year: string;
   model: any;
-  isAuthenticating:boolean=false;
+  showindicator:boolean=false;
   constructor(private http: HttpClient, private leaveService: LeaveService, private storageService: StorageService) {
     this.userInfo = this.storageService.getuserInfo();
     if(this.userInfo){
@@ -38,20 +38,23 @@ export class LeaveBalanceComponent implements OnInit {
   ngOnInit() {
     this.getAllEmpLeaveBalYears();
     this.getEmpLeaveBalance(this.currentYear);
+    // setTimeout(() => {
+    //   this.showindicator = true;
+    // }, 200);
   }
   getAllEmpLeaveBalYears() {
-    this.isAuthenticating=true;
+    this.showindicator=true;
     this.leaveService.getAllYears()
       .subscribe(
         (allyearsResponse) => {
           if (allyearsResponse) {
-            this.isAuthenticating=false;
             this.allYears = JSON.parse(JSON.stringify(allyearsResponse));
+            this.showindicator=false;
             this.selectedyear = this.allYears.findIndex(year => year == this.currentYear);
           }
         },
         (error) => {
-          this.isAuthenticating=false;
+          this.showindicator=false;
           Toast.makeText("Oops! Something went wrong.").show();
           console.error(error);
         }
@@ -59,17 +62,20 @@ export class LeaveBalanceComponent implements OnInit {
   }
 
   getEmpLeaveBalance(year: string) {
-    this.isAuthenticating=true;
+    setTimeout(() => {
+      this.showindicator = true;
+    }, 100);
     this.leaveService.getLeaveBalance(this.employeeId, year)
       .subscribe(
         (empLeaveBalanceResponse) => {
           if (empLeaveBalanceResponse) {
             let res = empLeaveBalanceResponse[0];    
             this.empLeaveBalanceInfo = res['EmpLeaveBalance']; 
+            this.showindicator=false;
           }
         },
         (error) => {
-          this.isAuthenticating=false;
+          this.showindicator=false;
           Toast.makeText("Oops! Something went wrong.").show();
           console.error(error);
         }

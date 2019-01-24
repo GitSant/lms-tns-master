@@ -39,6 +39,7 @@ export class ApplyLeaveComponent implements OnInit {
   noOfLeaveDays: number;
   sessioncount: number = 1;
   availableleaves: any;
+  busyindicator:boolean=false;
 
   constructor(private leaveservice: LeaveService, private storageService: StorageService, private routerExtentions:RouterExtensions) {
     this.model.leavetype = 0;
@@ -118,13 +119,16 @@ export class ApplyLeaveComponent implements OnInit {
   leaveTypeIndexChanged(args: SelectedIndexChangedEventData) {
     this.leavetypeindex = args.newIndex;
     if (this.leavetypeindex !== 0) {
+      this.busyindicator=true;
       this.leaveservice.getavailableleaves(this.employeeId, this.leavetypeindex.toString())
         .subscribe((availableleavesresponse) => {
           if (availableleavesresponse) {
             this.availableleaves = JSON.parse(JSON.stringify(availableleavesresponse));
+            this.busyindicator=false;
           }
         },
           (error) => {
+            this.busyindicator=false;
             Toast.makeText("Oops! Something went wrong.").show();
             console.error(error);
           });
@@ -210,12 +214,14 @@ export class ApplyLeaveComponent implements OnInit {
     leaveInfo.StartDateSession = this.session1value;
     leaveInfo.EndDateSession = this.session2value;
     //console.log(leaveInfo);
+    this.busyindicator=true;
     this.leaveservice.leaveapplypost(leaveInfo)
     .subscribe(
       (leaveapplyresponse)=>{
         if(leaveapplyresponse){
+          this.busyindicator=false;
           Toast.makeText("Leave applied sucessfully").show();
-          this.isactive=true;
+          //this.isactive=true;
           this.routerExtentions.navigate(['/leavebalance'], {
             transition: { name: "flip" }
           });

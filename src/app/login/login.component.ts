@@ -72,7 +72,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     this.validateEmail(this.user.email);
     this.validatePassword(this.user.password);
-    this.showindicator = true;
+    setTimeout(() => {
+      this.showindicator = true;
+    }, 200);
     if (this.user.email && this.user.password) {
       this.authservice.login(this.user).subscribe(
         (employeeLoginResponse) => {

@@ -19,36 +19,27 @@ export class AppComponent implements OnInit {
     private _sideDrawerTransition: DrawerTransitionBase;
     emailId: string;
     name: string;
-    userInfo:Employee;
+    userInfo: Employee;
+    busyindaicator: boolean = false;
 
     constructor(private router: Router, private routerExtensions: RouterExtensions, private storageService: StorageService) {
-        this.userInfo=this.storageService.getuserInfo();
-        if(this.userInfo){
-         this.emailId=this.userInfo.EmailId;
-        this.name=this.userInfo.Name;
+        this.userInfo = this.storageService.getuserInfo();
+        if (this.userInfo) {
+            this.emailId = this.userInfo.EmailId;
+            this.name = this.userInfo.Name;
         }
         // Use the component constructor to inject services.
-    
+
     }
 
     ngOnInit(): void {
-        // app.android.on(app.AndroidApplication.activityBackPressedEvent,(args:AndroidActivityBackPressedEventData)=>
-        // {
-        //     if(this.userInfo==undefined){
-        //         Toast.makeText("You are logged out, Please Login.").show();
-        //           args.cancel=true;
-        //     }
-        //     else{
-        //         args.cancel=false;
-        //     }
-        // })
         this._activatedUrl = "/home";
         this._sideDrawerTransition = new SlideInOnTopTransition();
 
         this.router.events
             .pipe(filter((event: any) => event instanceof NavigationEnd))
             .subscribe((event: NavigationEnd) => this._activatedUrl = event.urlAfterRedirects);
-           
+
     }
 
     get sideDrawerTransition(): DrawerTransitionBase {
@@ -69,13 +60,18 @@ export class AppComponent implements OnInit {
         sideDrawer.closeDrawer();
     }
 
-    onNavItem(navItemRoute: string): void {
-        this.routerExtensions.navigate(["/login"]);
-        const sideDrawer = <RadSideDrawer>app.getRootView();
-        sideDrawer.closeDrawer();
-    }
-
     public updateuserinfo(username: string) {
         this.name = username;
+    }
+
+    onNavItem(navItemRoute: string): void {
+        setTimeout(() => {
+            this.busyindaicator = true;
+        }, 200);
+        this.routerExtensions.navigate(["/login"]);
+        //Toast.makeText("You are logged out, Please Login.").show();
+        this.busyindaicator = false;
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.closeDrawer();
     }
 }
