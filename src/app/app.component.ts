@@ -60,9 +60,6 @@ export class AppComponent implements OnInit {
     }
 
     onNavItemTap(navItemRoute: string): void {
-       // this.storageService.setuserInfo(undefined);
-        //this.routerExtensions.navigate(["/login"]);
-        //Toast.makeText("You are logged out, Please Login.").show();
         this.routerExtensions.navigate([navItemRoute], {
             transition: {
                 name: "fade"
@@ -71,11 +68,14 @@ export class AppComponent implements OnInit {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.closeDrawer();
     }
-    onNavItem(navItemRoute: string):void{
+
+    onNavItem(navItemRoute: string): void {
         this.routerExtensions.navigate(["/login"]);
-    //Toast.makeText("You are logged out, Please Login.").show();
-    
-    const sideDrawer = <RadSideDrawer>app.getRootView();
-    sideDrawer.closeDrawer();
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.closeDrawer();
+    }
+
+    public updateuserinfo(username: string) {
+        this.name = username;
     }
 }
