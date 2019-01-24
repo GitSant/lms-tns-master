@@ -65,12 +65,12 @@ export class AppComponent implements OnInit {
     }
 
     onNavItem(navItemRoute: string): void {
-        setTimeout(() => {
-            this.busyindaicator = true;
-        }, 200);
+        // setTimeout(() => {
+        //     this.busyindaicator = true;
+        // }, 200);
         this.routerExtensions.navigate(["/login"]);
         //Toast.makeText("You are logged out, Please Login.").show();
-        this.busyindaicator = false;
+        //this.busyindaicator = false;
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.closeDrawer();
     }

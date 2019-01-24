@@ -43,35 +43,33 @@ export class LeaveBalanceComponent implements OnInit {
     // }, 200);
   }
   getAllEmpLeaveBalYears() {
-    this.showindicator=true;
     this.leaveService.getAllYears()
       .subscribe(
         (allyearsResponse) => {
           if (allyearsResponse) {
             this.allYears = JSON.parse(JSON.stringify(allyearsResponse));
-            this.showindicator=false;
             this.selectedyear = this.allYears.findIndex(year => year == this.currentYear);
           }
         },
         (error) => {
-          this.showindicator=false;
           Toast.makeText("Oops! Something went wrong.").show();
           console.error(error);
         }
-      )
+      );
   }
 
   getEmpLeaveBalance(year: string) {
     setTimeout(() => {
       this.showindicator = true;
-    }, 100);
+    }, 50);
     this.leaveService.getLeaveBalance(this.employeeId, year)
       .subscribe(
         (empLeaveBalanceResponse) => {
           if (empLeaveBalanceResponse) {
+            this.showindicator=false;
             let res = empLeaveBalanceResponse[0];    
             this.empLeaveBalanceInfo = res['EmpLeaveBalance']; 
-            this.showindicator=false;
+            //this.showindicator=false;
           }
         },
         (error) => {
@@ -80,6 +78,7 @@ export class LeaveBalanceComponent implements OnInit {
           console.error(error);
         }
       );
+      this.showindicator=false;
   }
 
   public openDD(args: EventData) {
