@@ -42,7 +42,7 @@
                                 backgroundColor="white">
                                 <DropDown id="session1dd" [items]="sessions" [(ngModel)]="model.session1"
                                     [selectedIndex]="session1index" (selectedIndexChanged)="sessionOneIndexChanged($event)"
-                                    row="0" col="0" width="100%" height="30">
+                                    row="0" col="0" width="100%" height="28">
                                 </DropDown>
                             </GridLayout>
                         </GridLayout>
@@ -74,7 +74,7 @@
                                 backgroundColor="white">
                                 <DropDown id="session2dd" [items]="sessions" [(ngModel)]="model.session2"
                                     [selectedIndex]="session2index" (selectedIndexChanged)="sessionTwoIndexChanged($event)"
-                                    row="0" col="0" width="100%" height="30">
+                                    row="0" col="0" width="100%" height="28">
                                 </DropDown>
                             </GridLayout>
                         </GridLayout>
@@ -92,7 +92,7 @@
                                 backgroundColor="white">
                                 <DropDown id="leavetypedd" [items]="leavetypes" [(ngModel)]="model.leavetype"
                                     [selectedIndex]="leavetypeindex" (selectedIndexChanged)="leaveTypeIndexChanged($event)"
-                                    row="0" col="0" width="100%" height="30">
+                                    row="0" col="0" width="100%" height="28">
                                 </DropDown>
                             </GridLayout>
                         </GridLayout>
@@ -127,7 +127,7 @@
                             <GridLayout columns="*" (tap)="openleavetypeDD($event)">
                                 <TextView #leavereason row="1" class="input" style.placeholderColor="lightgray" hint="Leave Reason"
                                     backgroundColor="white" [(ngModel)]="model.leavereason" autocorrect="false"
-                                    autocapitalizationType="none" height="150"></TextView>
+                                    autocapitalizationType="none" height="150" style="font-family:  Calibri;font-size: 14px;" keyboardType="email"></TextView>
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
