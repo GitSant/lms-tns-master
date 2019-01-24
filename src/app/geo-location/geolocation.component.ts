@@ -14,6 +14,7 @@ export class GeoLocationComponent {
     latitude: number;
     longitude: number;
     private watchId: number;
+    busyindicator:boolean=false;
 
     constructor(private zone: NgZone) {
         this.latitude = 0;
@@ -26,10 +27,15 @@ export class GeoLocationComponent {
     }
     // tslint:disable-next-line:member-ordering
     updateLocation() {
+        setTimeout(() => {
+            this.busyindicator = true;
+          }, 100);
         this.getDeviceLocation().then((result) => {
+            this.busyindicator=false;
             this.latitude = result.latitude;
             this.longitude = result.longitude;
         }, (error) => {
+            this.busyindicator=false;
             console.error(error);
         });
     }

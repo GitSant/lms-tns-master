@@ -9,7 +9,7 @@ import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Employee } from "../models/employee.model";
-import { AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+import { AndroidActivityBackPressedEventData, getRootView } from "tns-core-modules/application";
 
 @Component({
   selector: "Login",
@@ -58,13 +58,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // if (!this.validateEmail(this.user.email) || !this.validatePassword(this.user.password))
-    //   return;
-    // if (!this.validatePassword(this.user.password))
-    //   return;
     this.validateEmail(this.user.email);
     this.validatePassword(this.user.password);
-    this.showindicator = true;
+    setTimeout(() => {
+      this.showindicator = true;
+    }, 200);
     if (this.user.email && this.user.password) {
       this.authservice.login(this.user).subscribe(
         (employeeLoginResponse) => {
@@ -89,37 +87,37 @@ export class LoginComponent implements OnInit {
     }
   }
 
-validatemail(emailvalue: string) {
-  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  if (!regex.test(emailvalue)) {
-    this.emailformatvalidationerror = true;
-    return false;
-  } else {
-    this.emailformatvalidationerror = false;
-    return true;
+  validatemail(emailvalue: string) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!regex.test(emailvalue)) {
+      this.emailformatvalidationerror = true;
+      return false;
+    } else {
+      this.emailformatvalidationerror = false;
+      return true;
+    }
   }
-}
 
-validateEmail(emailvalue: string): boolean {
-  if (emailvalue) {
-    this.emailvalidateerror = false;
-    return true;
+  validateEmail(emailvalue: string): boolean {
+    if (emailvalue) {
+      this.emailvalidateerror = false;
+      return true;
+    }
+    else {
+      this.emailvalidateerror = true;
+      return false;
+    }
   }
-  else {
-    this.emailvalidateerror = true;
-    return false;
-  }
-}
 
-validatePassword(passwordvalue: string):boolean {
-  if (passwordvalue) {
-    this.passwordValidateError = false;
-    return true;
+  validatePassword(passwordvalue: string): boolean {
+    if (passwordvalue) {
+      this.passwordValidateError = false;
+      return true;
+    }
+    else {
+      this.passwordValidateError = true;
+      return false;
+    }
   }
-  else {
-    this.passwordValidateError = true;
-    return false;
-  }
-}
 }
 

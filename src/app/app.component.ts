@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
     emailId: string;
     name: string;
     userInfo:Employee;
+    busyindaicator:boolean=false;
 
     constructor(private router: Router, private routerExtensions: RouterExtensions, private storageService: StorageService) {
         this.userInfo=this.storageService.getuserInfo();
@@ -72,9 +73,12 @@ export class AppComponent implements OnInit {
         sideDrawer.closeDrawer();
     }
     onNavItem(navItemRoute: string):void{
+        setTimeout(() => {
+            this.busyindaicator = true;
+          }, 200);
         this.routerExtensions.navigate(["/login"]);
     //Toast.makeText("You are logged out, Please Login.").show();
-    
+        this.busyindaicator=false;
     const sideDrawer = <RadSideDrawer>app.getRootView();
     sideDrawer.closeDrawer();
     }

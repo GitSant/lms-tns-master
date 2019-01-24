@@ -5,18 +5,17 @@
     <Label class="action-bar-title" text="Leave Balance" color="white"></Label>
 </ActionBar>
 <GridLayout padding="1,1,1,1" backgroundColor="#0080ff" margin="5">
-    <StackLayout width="100%" height="100%" class="page page-content">
+    <StackLayout width="100%" height="100%" class="page page-content" rows="*,auto">
         <GridLayout rows="*,auto">
-            <GridLayout row="0" rows="*">
-                <ActivityIndicator color="green" [busy]="isAuthenticating" horizontalAlignment="center"
+            <!-- <GridLayout row="0" rows="*">
+                <ActivityIndicator color="green" [busy]="showindicator" horizontalAlignment="center"
                     verticalAlignment="center"></ActivityIndicator>
-            </GridLayout>
+            </GridLayout> -->
             <GridLayout row="0" rows="auto,*" ,columns="auto,auto">
                 <StackLayout row="0" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,5,0">
                     <label class="lbl" text="Select Year" row="0" margin="0,0,0,10"></label>
                     <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,10,5,10">
-                        <GridLayout (tap)="openDD($event)" style="border:0cm solid black"
-                            backgroundColor="white">
+                        <GridLayout (tap)="openDD($event)" style="border:0cm solid black" backgroundColor="white">
                             <DropDown id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
                                 (selectedIndexChanged)="yearIndexChanged($event)" row="0" col="0" width="100%" height="33"></DropDown>
                             <!-- <ListPicker id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear" [selectedIndex]="currentYearIndex"
@@ -29,7 +28,7 @@
                     <ListView [items]="empLeaveBalanceInfo" separatorColor="transparent" margin="2,10,2,10" class="list-group">
                         <ng-template let-emp="item">
                             <GridLayout padding="1,1,0,1" backgroundColor="lightgray" margin="5,0,5,0">
-                                <GridLayout columns="150,auto" rows="auto,auto,auto,auto,auto,auto,auto" width="300"
+                                <GridLayout columns="150,auto" rows="auto,auto,auto,auto,auto,auto,auto"
                                     backgroundColor="white" padding="0,0,0,10">
                                     <Label text="Type" col="0" row="0" padding="5,0,0,0"></Label>
                                     <Label class="lbl" [text]="emp.LeaveTypeName" col="1" row="0"></Label>
@@ -51,6 +50,8 @@
                     </ListView>
                 </StackLayout>
             </GridLayout>
+            <ActivityIndicator color="green" [busy]="showindicator" horizontalAlignment="center" verticalAlignment="center"
+                aria-rowspan="3"></ActivityIndicator>
         </GridLayout>
     </StackLayout>
 </GridLayout>
