@@ -6,9 +6,9 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
     <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
         <StackLayout row="0" class="sidedrawer-header">
-            <Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-            <!-- <Label class="sidedrawer-header-brand" [text]="name"></Label>
-            <Label class="footnote" text="{{emailId}}"></Label> -->
+            <Label class="sidedrawer-header-image fa" text="&nbsp;&#xf007;" style="color:black;font-size: 45;"></Label>
+            <Label class="sidedrawer-header-brand" [text]="name"></Label>
+            <!-- <Label class="footnote" [text]="emailId"></Label> -->
         </StackLayout>
         <ScrollView row="1">
             <StackLayout class="sidedrawer-content">
@@ -17,6 +17,12 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf015;" class="fa"></Label>
                     <Label col="1" text="" class="p-r-10"></Label>
                 </GridLayout> -->
+
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/leavebalance')"
+                    (tap)="onNavItemTap('/leavebalance')">
+                    <Label col="0" text="&#xf15c;" class="fa"></Label>
+                    <Label col="1" text="Leave Balance" class="p-r-10"></Label>
+                </GridLayout>
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/applyleave')"
                     (tap)="onNavItemTap('/applyleave')">
@@ -43,15 +49,10 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="0" text="&#xf005;" class="fa"></Label>
                     <Label col="1" text="Featured" class="p-r-10"></Label>
                 </GridLayout> -->
-                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/leavebalance')"
-                    (tap)="onNavItemTap('/leavebalance')">
-                    <Label col="0" text="&#xf005;" class="fa"></Label>
-                    <Label col="1" text="Leave Balance" class="p-r-10"></Label>
-                </GridLayout>
 
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/geolocation')"
                     (tap)="onNavItemTap('/geolocation')">
-                    <Label col="0" text="&#xf3c5;" class="fa"></Label>
+                    <Label col="0" text="&#xf041;" class="fa"></Label>
                     <Label col="1" text="Geo Location" class="p-r-10"></Label>
                 </GridLayout>
 

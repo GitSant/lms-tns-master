@@ -1,24 +1,27 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
 import * as Toast from "nativescript-toast";
-import { Page, EventData } from "tns-core-modules/ui/page/page";
+import { Page, EventData, isAndroid } from "tns-core-modules/ui/page/page";
 import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
 import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Employee } from "../models/employee.model";
-import { AndroidActivityBackPressedEventData } from "tns-core-modules/application";
+import { AndroidActivityBackPressedEventData, getRootView } from "tns-core-modules/application";
+import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular/side-drawer-directives";
+import { AppComponent } from "../app.component";
 
 @Component({
   selector: "Login",
   moduleId: module.id,
   templateUrl: "./login.component.html"
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild("password") passwordField: ElementRef;
   @ViewChild("email") emailField: ElementRef;
+  private drawer: RadSideDrawer;
 
   user: User;
   userInfo: Employee;
@@ -34,7 +37,8 @@ export class LoginComponent implements OnInit {
     private page: Page,
     private routerExtensions: RouterExtensions,
     private authservice: AuthenticationService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private appComponent: AppComponent
   ) {
     this.user = new User();
     this.user.email = "saptagiri.k@tekyslab.com";
@@ -57,11 +61,15 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  ngAfterViewInit() {
+    // use setTimeout otherwise there is no getRootView valid reference
+    setTimeout(() => {
+      this.drawer = <RadSideDrawer>getRootView();
+      this.drawer.gesturesEnabled = false;
+    }, 100);
+  }
+
   login() {
-    // if (!this.validateEmail(this.user.email) || !this.validatePassword(this.user.password))
-    //   return;
-    // if (!this.validatePassword(this.user.password))
-    //   return;
     this.validateEmail(this.user.email);
     this.validatePassword(this.user.password);
     this.showindicator = true;
@@ -71,8 +79,11 @@ export class LoginComponent implements OnInit {
           if (employeeLoginResponse) {
             let data = JSON.parse(JSON.stringify(employeeLoginResponse));
             this.storageService.setuserInfo(data);
+            this.appComponent.updateuserinfo(data.Name);
             this.showindicator = false;
             Toast.makeText("Login success!").show();
+            this.drawer.gesturesEnabled = true;
+            //
             this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
           }
           else {
@@ -89,37 +100,37 @@ export class LoginComponent implements OnInit {
     }
   }
 
-validatemail(emailvalue: string) {
-  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  if (!regex.test(emailvalue)) {
-    this.emailformatvalidationerror = true;
-    return false;
-  } else {
-    this.emailformatvalidationerror = false;
-    return true;
+  validatemail(emailvalue: string) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!regex.test(emailvalue)) {
+      this.emailformatvalidationerror = true;
+      return false;
+    } else {
+      this.emailformatvalidationerror = false;
+      return true;
+    }
   }
-}
 
-validateEmail(emailvalue: string): boolean {
-  if (emailvalue) {
-    this.emailvalidateerror = false;
-    return true;
+  validateEmail(emailvalue: string): boolean {
+    if (emailvalue) {
+      this.emailvalidateerror = false;
+      return true;
+    }
+    else {
+      this.emailvalidateerror = true;
+      return false;
+    }
   }
-  else {
-    this.emailvalidateerror = true;
-    return false;
-  }
-}
 
-validatePassword(passwordvalue: string):boolean {
-  if (passwordvalue) {
-    this.passwordValidateError = false;
-    return true;
+  validatePassword(passwordvalue: string): boolean {
+    if (passwordvalue) {
+      this.passwordValidateError = false;
+      return true;
+    }
+    else {
+      this.passwordValidateError = true;
+      return false;
+    }
   }
-  else {
-    this.passwordValidateError = true;
-    return false;
-  }
-}
 }
 
