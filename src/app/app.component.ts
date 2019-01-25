@@ -8,6 +8,7 @@ import { StorageService } from "./services/storage.service";
 import { Employee } from "./models/employee.model";
 import { AndroidApplication, AndroidActivityBackPressedEventData } from "application";
 import * as Toast from "nativescript-toast";
+import { confirm } from "tns-core-modules/ui/dialogs";
 
 @Component({
     moduleId: module.id,
@@ -64,11 +65,24 @@ export class AppComponent implements OnInit {
         this.name = username;
     }
 
-    onNavItem(navItemRoute: string): void {
+    onNavItem() {
         // setTimeout(() => {
         //     this.busyindaicator = true;
         // }, 200);
-        this.routerExtensions.navigate(["/login"]);
+        let options = {
+            title: "Race selection",
+            message: "Are you sure to Logout?",
+            okButtonText: "Yes",
+            cancelButtonText: "No"
+        };
+        
+        confirm(options).then((result: boolean) => {
+            if(result==true){
+            this.busyindaicator=true;
+            this.routerExtensions.navigate(["/login"]);
+            this.busyindaicator=false;
+            }
+        });
         //Toast.makeText("You are logged out, Please Login.").show();
         //this.busyindaicator = false;
         const sideDrawer = <RadSideDrawer>app.getRootView();

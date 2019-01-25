@@ -1,4 +1,6 @@
-/* Add mobile styles for the component here.  */
+@import 'nativescript-theme-core/css/core.light.css';
+
+
 Label{
     color: black;
     font-weight: 300;
@@ -9,7 +11,10 @@ Label{
 .lbl{
     font-weight: 400;
 }
-.dropdownContentsCss {
-    padding:2,0,2,10;
-    margin-top: 0;
+
+.action-bar-style{
+    color:yellow;
+}
+ActionBar{
+    color:red;
 }

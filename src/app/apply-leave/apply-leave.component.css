@@ -10,3 +10,7 @@ Label{
 .lbl{
     font-weight: 400;
 }
+.dropdownContentsCss {
+    padding:2,0,2,10;
+    margin-top: 0;
+}

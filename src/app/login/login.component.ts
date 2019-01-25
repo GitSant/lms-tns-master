@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:no-empty
   ngOnInit(): void {
     //this.page.actionBarHidden = true;
+    //disabling back button
     app.android.on(app.AndroidApplication.activityBackPressedEvent, (args: AndroidActivityBackPressedEventData) => {
       if (this.userInfo == undefined) {
         args.cancel = true;
@@ -72,10 +73,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   login() {
     this.validateEmail(this.user.email);
     this.validatePassword(this.user.password);
-    setTimeout(() => {
-      this.showindicator = true;
-    }, 200);
     if (this.user.email && this.user.password) {
+      this.showindicator = true;
       this.authservice.login(this.user).subscribe(
         (employeeLoginResponse) => {
           if (employeeLoginResponse) {

@@ -115,23 +115,25 @@ export class ApplyLeaveComponent implements OnInit {
 
   leaveTypeIndexChanged(args: SelectedIndexChangedEventData) {
     this.leavetypeindex = args.newIndex;
-    if (this.leavetypeindex !== 0) {
-      // this.busyindicator = true;
-      this.leaveservice.getavailableleaves(this.employeeId, this.leavetypeindex.toString())
-        .subscribe((availableleavesresponse) => {
-          if (availableleavesresponse) {
-            this.availableleaves = JSON.parse(JSON.stringify(availableleavesresponse));
-            console.log(this.availableleaves);
-            // this.busyindicator = false;
-          }
-        },
-          (error) => {
-            // this.busyindicator = false;
-            Toast.makeText("Oops! Something went wrong.").show();
-            console.error(error);
-          });
+      if (this.leavetypeindex == 3||this.leavetypeindex==0) {
+        this.availableleaves = 0;
+      }
+      else {
+        this.leaveservice.getavailableleaves(this.employeeId, this.leavetypeindex.toString())
+          .subscribe((availableleavesresponse) => {
+            if (availableleavesresponse) {
+              this.availableleaves = JSON.parse(JSON.stringify(availableleavesresponse));
+              console.log(this.availableleaves);
+              // this.busyindicator = false;
+            }
+          },
+            (error) => {
+              // this.busyindicator = false;
+              Toast.makeText("Oops! Something went wrong.").show();
+              console.error(error);
+            });
+      }
     }
-  }
 
   // tslint:disable-next-line:member-ordering
   ondatechange() {
@@ -243,17 +245,17 @@ export class ApplyLeaveComponent implements OnInit {
       Toast.makeText("Leave End Date must be greater than Start Date.").show();
       return false;
     }
-    if ((new Date(this.startdate).toISOString()) === (new Date(this.startdate).toISOString())
+    if ((new Date(this.startdate).toISOString()) === (new Date(this.enddate).toISOString())
       && (this.session1value === 2 && this.session2value === 1)) {
       Toast.makeText("Sessions must be Equal or from Session1 to Session2 on the same date.").show();
       return false;
     }
-    if (this.model.leavetype != "3" && (this.availableleaves == 0 || this.availableleaves < +(this.model.leaveDays))) {
-      Toast.makeText("You don't have sufficient leaves, please contact admin.").show();
+    if (this.model.leavetype === 0 && (this.availableleaves==0 ||this.availableleaves==undefined)) {
+      Toast.makeText("Please select a Leave Type.").show();
       return false;
     }
-    if (this.model.leavetype === 0) {
-      Toast.makeText("Please select a Leave Type.").show();
+    if (this.model.leavetype != "3" && (this.availableleaves == 0 || this.availableleaves < +(this.model.leaveDays))) {
+      Toast.makeText("You don't have sufficient leaves, please contact admin.").show();
       return false;
     }
     if (this.model.leavereason === undefined) {

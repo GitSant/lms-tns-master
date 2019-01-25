@@ -17,7 +17,7 @@
                     <GridLayout row="1" rows="auto" backgroundColor="white">
                         <GridLayout rows="auto" padding="1,1,1,1" margin="20,25,0,25" backgroundColor="lightgray">
                             <TextField #email="ngModel" row="0" class="input" style.placeholderColor="lightgray" height=30
-                                hint="Email Id" backgroundColor="white" padding="0,0,0,10" keyboardType="email"
+                                hint="Email Id*" backgroundColor="white" padding="0,0,0,10" keyboardType="email"
                                 [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none" required
                                 style="font-family:  Calibri;font-size: 15px;" (blur)="validatemail(user.email)">
                             </TextField>
@@ -35,7 +35,7 @@
                     <GridLayout row="3" rows="auto" backgroundColor="white">
                         <GridLayout rows="auto" padding="1,1,1,1" backgroundColor="lightgray" margin="10,25,0,25">
                             <TextField #password="ngModel" row="1" col="0" class="input" style.placeholderColor="lightgray"
-                                height=30 hint="Password" backgroundColor="white" padding="0,0,0,10" secure="true"
+                                height=30 hint="Password*" backgroundColor="white" padding="0,0,0,10" secure="true"
                                 [(ngModel)]="user.password" required style="font-family:  Calibri;font-size: 15px;">
                             </TextField>
                         </GridLayout>
@@ -54,7 +54,7 @@
                 </GridLayout>
             </GridLayout>
         </GridLayout>
-        <ActivityIndicator color="green" [busy]="showindicator" aria-rowspan="3" horizontalAlignment="center"
+        <ActivityIndicator color="#0080ff" [busy]="showindicator" aria-rowspan="3" horizontalAlignment="center"
             verticalAlignment="center"></ActivityIndicator>
     </GridLayout>
 </StackLayout>

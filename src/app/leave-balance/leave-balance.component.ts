@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { HttpClient } from "@angular/common/http"
@@ -18,29 +18,29 @@ import { ListPicker } from "tns-core-modules/ui/list-picker";
   moduleId: module.id,
 })
 export class LeaveBalanceComponent implements OnInit {
+  @ViewChild('dd') dropDown: ElementRef;
+
   currentYear: any = (new Date()).getFullYear().toString();
   allYears: Array<string> = [];
-  selectedyear:any;
+  selectedyear: any;
   employeeId: number;
   userInfo: Employee;
   empLeaveBalanceInfo: LeaveBalance;
   currentYearIndex: number;
   year: string;
   model: any;
-  showindicator:boolean=false;
+  showindicator: boolean = false;
+  public dropdownCss: string = "dropdownContentsCss";
   constructor(private http: HttpClient, private leaveService: LeaveService, private storageService: StorageService) {
     this.userInfo = this.storageService.getuserInfo();
-    if(this.userInfo){
-    this.employeeId = this.userInfo.Id;
+    if (this.userInfo) {
+      this.employeeId = this.userInfo.Id;
     }
   }
 
   ngOnInit() {
     this.getAllEmpLeaveBalYears();
     this.getEmpLeaveBalance(this.currentYear);
-    // setTimeout(() => {
-    //   this.showindicator = true;
-    // }, 200);
   }
   getAllEmpLeaveBalYears() {
     this.leaveService.getAllYears()
@@ -59,26 +59,24 @@ export class LeaveBalanceComponent implements OnInit {
   }
 
   getEmpLeaveBalance(year: string) {
-    setTimeout(() => {
-      this.showindicator = true;
-    }, 50);
+    this.showindicator = true;
     this.leaveService.getLeaveBalance(this.employeeId, year)
       .subscribe(
         (empLeaveBalanceResponse) => {
           if (empLeaveBalanceResponse) {
-            this.showindicator=false;
-            let res = empLeaveBalanceResponse[0];    
-            this.empLeaveBalanceInfo = res['EmpLeaveBalance']; 
+            this.showindicator = false;
+            let res = empLeaveBalanceResponse[0];
+            this.empLeaveBalanceInfo = res['EmpLeaveBalance'];
             //this.showindicator=false;
           }
         },
         (error) => {
-          this.showindicator=false;
+          this.showindicator = false;
           Toast.makeText("Oops! Something went wrong.").show();
           console.error(error);
         }
       );
-      this.showindicator=false;
+    this.showindicator = false;
   }
 
   public openDD(args: EventData) {
