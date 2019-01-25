@@ -223,14 +223,16 @@ export class ApplyLeaveComponent implements OnInit {
           Toast.makeText("Leave applied sucessfully").show();
           //this.isactive=true;
           this.routerExtentions.navigate(['/leavebalance'], {
-            transition: { name: "flip" }
+            transition: { name: "flip", duration:50 }
           });
         }
         else{
-          Toast.makeText("Leave applied failed.").show();
+          this.busyindicator=false;
+          Toast.makeText("Leave apply failed.").show();
         }
       },(error)=>
       {
+        this.busyindicator=false;
         Toast.makeText("Oops! Something went wrong.").show();
         console.error(error);
       }

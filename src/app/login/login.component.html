@@ -10,8 +10,11 @@
         <GridLayout row="0" rows="*">
             <GridLayout padding="1,1,1,1" row="0" rows="*" backgroundColor="#0080ff" margin="0,10,0,10"
                 verticalAlignment="center" horizontalAlignment="center">
-                <GridLayout row="0" rows="auto, auto, auto, auto, auto" backgroundColor="white" verticalAlignment="top">
-                    <GridLayout row="0" rows="auto" backgroundColor="white">
+                <GridLayout row="0" rows="auto,auto, auto, auto, auto, auto" backgroundColor="white" verticalAlignment="top">
+                    <GridLayout row="0" rows="auto">
+                        <!-- <Image src="../images/tekyslab.png"></Image> -->
+                    </GridLayout>
+                    <GridLayout row="1" rows="auto" backgroundColor="white">
                         <GridLayout rows="auto" padding="1,1,1,1" margin="20,25,0,25" backgroundColor="lightgray">
                             <TextField #email="ngModel" row="0" class="input" style.placeholderColor="lightgray" height=30
                                 hint="Email Id" backgroundColor="white" padding="0,0,0,10" keyboardType="email"
@@ -20,7 +23,7 @@
                             </TextField>
                         </GridLayout>
                     </GridLayout>
-                    <GridLayout row="1">
+                    <GridLayout row="2">
                         <StackLayout *ngIf="(email.errors) && ((emailvalidateerror)||(!email.invalid))">
                             <Label *ngIf="email.errors?.required" text="Email Id is required." padding="0,0,5,25" color="red"></Label>
                         </StackLayout>
@@ -29,7 +32,7 @@
                                 color="red"></Label>
                         </StackLayout>
                     </GridLayout>
-                    <GridLayout row="2" rows="auto" backgroundColor="white">
+                    <GridLayout row="3" rows="auto" backgroundColor="white">
                         <GridLayout rows="auto" padding="1,1,1,1" backgroundColor="lightgray" margin="10,25,0,25">
                             <TextField #password="ngModel" row="1" col="0" class="input" style.placeholderColor="lightgray"
                                 height=30 hint="Password" backgroundColor="white" padding="0,0,0,10" secure="true"
@@ -37,13 +40,13 @@
                             </TextField>
                         </GridLayout>
                     </GridLayout>
-                    <GridLayout row="3" rows="auto">
+                    <GridLayout row="4" rows="auto">
                         <StackLayout *ngIf="(password.errors) && ((passwordValidateError)||(!password.invalid))">
                             <Label *ngIf="password.errors?.required" text="Password is required." padding="0,0,5,25"
                                 color="red"></Label>
                         </StackLayout>
                     </GridLayout>
-                    <GridLayout row="4" rows="auto">
+                    <GridLayout row="5" rows="auto">
                         <Button row="0" text="LogIn" backgroundColor="#0080ff" color="white" (tap)="login()" width="35%"
                             margin="10,0,10,0">
                         </Button>
