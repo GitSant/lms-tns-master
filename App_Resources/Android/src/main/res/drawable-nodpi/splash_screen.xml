@@ -3,6 +3,6 @@
         <bitmap android:gravity="fill" android:src="@drawable/whitebackground" />
     </item>
     <item>
-        <bitmap android:gravity="center" android:src="@drawable/tekyslab" />
+        <bitmap android:gravity="center" android:src="@drawable/tekyslabnewlogo" />
     </item>
 </layer-list>
