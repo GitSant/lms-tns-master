@@ -2,16 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild, AfterViewInit, ChangeDetector
 import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
 import * as Toast from "nativescript-toast";
-import { Page, EventData, isAndroid } from "tns-core-modules/ui/page/page";
-import { inputType, prompt } from "ui/dialogs";
 import { User } from "../models/user.model";
 import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Employee } from "../models/employee.model";
 import { AndroidActivityBackPressedEventData, getRootView } from "tns-core-modules/application";
-import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular/side-drawer-directives";
 import { AppComponent } from "../app.component";
+import { ConnectivityService } from "../services/connectivity.service";
 
 @Component({
   selector: "Login",
@@ -34,7 +32,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(
-    private page: Page,
+    private connectionService: ConnectivityService,
     private routerExtensions: RouterExtensions,
     private authservice: AuthenticationService,
     private storageService: StorageService,
@@ -71,33 +69,34 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   login() {
-    this.validateEmail(this.user.email);
-    this.validatePassword(this.user.password);
-    if (this.user.email && this.user.password) {
-      this.showindicator = true;
-      this.authservice.login(this.user).subscribe(
-        (employeeLoginResponse) => {
-          if (employeeLoginResponse) {
-            let data = JSON.parse(JSON.stringify(employeeLoginResponse));
-            this.storageService.setuserInfo(data);
-            this.appComponent.updateuserinfo(data.Name);
+    if (this.connectionService.checkConnection()) {
+      this.validateEmail(this.user.email);
+      this.validatePassword(this.user.password);
+      if (this.user.email && this.user.password) {
+        this.showindicator = true;
+        this.authservice.login(this.user).subscribe(
+          (employeeLoginResponse) => {
+            if (employeeLoginResponse) {
+              let data = JSON.parse(JSON.stringify(employeeLoginResponse));
+              this.storageService.setuserInfo(data);
+              this.appComponent.updateuserinfo(data.Name);
+              this.showindicator = false;
+              Toast.makeText("Login success!").show();
+              this.drawer.gesturesEnabled = true;
+              this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
+            }
+            else {
+              this.showindicator = false;
+              Toast.makeText("Invalid Credentials! Login failed.").show();
+            }
+          },
+          (error) => {
             this.showindicator = false;
-            Toast.makeText("Login success!").show();
-            this.drawer.gesturesEnabled = true;
-            //
-            this.routerExtensions.navigate(["/leavebalance"], { clearHistory: true });
+            Toast.makeText("Oops! Somethind went wrong.").show();
+            console.error(error);
           }
-          else {
-            this.showindicator = false;
-            Toast.makeText("Invalid Credentials! Login failed.").show();
-          }
-        },
-        (error) => {
-          this.showindicator = false;
-          Toast.makeText("Oops! Somethind went wrong.").show();
-          console.error(error);
-        }
-      );
+        );
+      }
     }
   }
 

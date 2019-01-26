@@ -11,6 +11,7 @@ import { ILeaveTypes } from "../models/leavetype.model";
 import { LeaveService } from "../services/leave.service";
 import { StorageService } from "../services/storage.service";
 import { RouterExtensions } from "nativescript-angular/router";
+import { ConnectivityService } from "../services/connectivity.service";
 
 @Component({
   selector: "ns-apply-leave",
@@ -41,7 +42,7 @@ export class ApplyLeaveComponent implements OnInit {
   busyindicator: boolean = false;
   public dropdownCss: string = "dropdownContentsCss";
 
-  constructor(private leaveservice: LeaveService, private storageService: StorageService, private routerExtentions: RouterExtensions) {
+  constructor(private connectionService: ConnectivityService, private leaveservice: LeaveService, private storageService: StorageService, private routerExtentions: RouterExtensions) {
     this.model.leavetype = 0;
     this.model.session1 = 0;
     this.model.session2 = 1;
@@ -114,8 +115,9 @@ export class ApplyLeaveComponent implements OnInit {
   }
 
   leaveTypeIndexChanged(args: SelectedIndexChangedEventData) {
-    this.leavetypeindex = args.newIndex;
-      if (this.leavetypeindex == 3||this.leavetypeindex==0) {
+    if (this.connectionService.checkConnection()) {
+      this.leavetypeindex = args.newIndex;
+      if (this.leavetypeindex == 3 || this.leavetypeindex == 0) {
         this.availableleaves = 0;
       }
       else {
@@ -134,6 +136,7 @@ export class ApplyLeaveComponent implements OnInit {
             });
       }
     }
+  }
 
   // tslint:disable-next-line:member-ordering
   ondatechange() {
@@ -205,28 +208,29 @@ export class ApplyLeaveComponent implements OnInit {
   }
 
   onapplytap() {
-    if (this.validateleaveapplication()) {
-      this.busyindicator = true;
-      const leaveInfo = this.prepareLeaveData();
-      this.leaveservice.leaveapplypost(leaveInfo)
-        .subscribe(
-          (leaveapplyresponse) => {
-            if (leaveapplyresponse) {
+    if (this.connectionService.checkConnection()) {
+      if (this.validateleaveapplication()) {
+        this.busyindicator = true;
+        const leaveInfo = this.prepareLeaveData();
+        this.leaveservice.leaveapplypost(leaveInfo)
+          .subscribe(
+            (leaveapplyresponse) => {
+              if (leaveapplyresponse) {
+                this.busyindicator = false;
+                Toast.makeText("Leave applied sucessfully").show();
+                this.routerExtentions.navigate(['/leavebalance'], {
+                  transition: { name: "flip", duration: 100 }
+                });
+              }
+              else {
+                this.busyindicator = false;
+              }
+            }, (error) => {
               this.busyindicator = false;
-              Toast.makeText("Leave applied sucessfully").show();
-              this.routerExtentions.navigate(['/leavebalance'], {
-                transition: { name: "flip", duration: 100 }
-              });
+              Toast.makeText("Oops! Something went wrong.").show();
             }
-            else {
-              this.busyindicator = false;
-              //Toast.makeText("Oops! Something went wrong.").show();
-            }
-          }, (error) => {
-            this.busyindicator = false;
-            Toast.makeText("Oops! Something went wrong.").show();
-          }
-        );
+          );
+      }
     }
   }
 
@@ -249,7 +253,7 @@ export class ApplyLeaveComponent implements OnInit {
       Toast.makeText("Sessions must be Equal or from Session1 to Session2 on the same date.").show();
       return false;
     }
-    if (this.model.leavetype === 0 && (this.availableleaves==0 ||this.availableleaves==undefined)) {
+    if (this.model.leavetype === 0 && (this.availableleaves == 0 || this.availableleaves == undefined)) {
       Toast.makeText("Please select a Leave Type.").show();
       return false;
     }

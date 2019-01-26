@@ -10,6 +10,7 @@ import * as Toast from "nativescript-toast";
 import { EventData, Page } from 'tns-core-modules/ui/page/page';
 import { DropDown, SelectedIndexChangedEventData } from 'nativescript-drop-down';
 import { ListPicker } from "tns-core-modules/ui/list-picker";
+import { ConnectivityService } from '../services/connectivity.service';
 
 @Component({
   selector: 'ns-leave-balance',
@@ -31,7 +32,7 @@ export class LeaveBalanceComponent implements OnInit {
   model: any;
   showindicator: boolean = false;
   public dropdownCss: string = "dropdownContentsCss";
-  constructor(private http: HttpClient, private leaveService: LeaveService, private storageService: StorageService) {
+  constructor(private http: HttpClient, private connectionService: ConnectivityService, private leaveService: LeaveService, private storageService: StorageService) {
     this.userInfo = this.storageService.getuserInfo();
     if (this.userInfo) {
       this.employeeId = this.userInfo.Id;
@@ -67,7 +68,6 @@ export class LeaveBalanceComponent implements OnInit {
             this.showindicator = false;
             let res = empLeaveBalanceResponse[0];
             this.empLeaveBalanceInfo = res['EmpLeaveBalance'];
-            //this.showindicator=false;
           }
         },
         (error) => {
@@ -86,12 +86,13 @@ export class LeaveBalanceComponent implements OnInit {
   }
 
   yearIndexChanged(args: SelectedIndexChangedEventData) {
+    if (this.connectionService.checkConnection()) {
     let picker = <ListPicker>args.object;
     var index = args.newIndex;
     this.currentYear = this.allYears[picker.selectedIndex];
     this.currentYearIndex = index;
     this.getEmpLeaveBalance(parseInt(this.currentYear).toString());
-    console.log(this.empLeaveBalanceInfo);
+    }
   }
 
   onDrawerButtonTap(): void {
