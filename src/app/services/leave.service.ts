@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import * as Toast from "nativescript-toast";
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { Leave } from "../models/leave.model";
@@ -64,7 +65,10 @@ export class LeaveService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
+      console.log(`${operation} failed status: ${error.message}`);
+      if (error.status === 409) {
+        Toast.makeText(error.error).show();
+      }
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
