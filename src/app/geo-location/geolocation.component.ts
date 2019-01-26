@@ -27,14 +27,14 @@ export class GeoLocationComponent {
     }
     // tslint:disable-next-line:member-ordering
     updateLocation() {
-        this.busyindicator = true;
+        // this.busyindicator = true;
         this.getDeviceLocation().then((result) => {
             this.busyindicator = false;
             this.latitude = result.latitude;
             this.longitude = result.longitude;
         }, (error) => {
             this.busyindicator = false;
-            console.error(error);
+            console.error( error);
         });
     }
 
@@ -62,7 +62,8 @@ export class GeoLocationComponent {
     private getDeviceLocation(): Promise<any> {
         return new Promise((resolve, reject) => {
             Geolocation.enableLocationRequest().then(() => {
-                Geolocation.getCurrentLocation({ timeout: 10000 }).then((location) => {
+                this.busyindicator = true;
+                Geolocation.getCurrentLocation({ timeout: 20000 }).then((location) => {
                     resolve(location);
                 }).catch((error) => {
                     reject(error);
