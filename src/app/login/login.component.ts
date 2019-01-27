@@ -75,7 +75,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       app.AndroidApplication.activityBackPressedEvent,
       (args: AndroidActivityBackPressedEventData) => {
           args.cancel = (this.userInfo === undefined) ? true : false;
-
       }
     );
   }

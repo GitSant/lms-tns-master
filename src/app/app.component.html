@@ -63,7 +63,7 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="1" text="Settings" class="p-r-10"></Label>
                 </GridLayout> -->
                 <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/login')"
-                    (tap)="onNavItem('/login')">
+                    (tap)="onLogoutTap()">
                     <Label col="0" text="&#xf011;" class="fa"></Label>
                     <Label col="1" text="Logout" class="p-r-10"></Label>
                 </GridLayout>

@@ -153,7 +153,7 @@ export class ApplyLeaveComponent implements OnInit {
     sideDrawer.showDrawer();
   }
 
-  private pickStartDate() {
+  pickStartDate() {
     const picker = new modalDatepicker.ModalDatetimepicker();
     let month: string = "";
     let day: string = "";
@@ -174,7 +174,7 @@ export class ApplyLeaveComponent implements OnInit {
     });
   }
 
-  private pickEndDate() {
+  pickEndDate() {
     const picker = new modalDatepicker.ModalDatetimepicker();
     let month: string = "";
     let day: string = "";
