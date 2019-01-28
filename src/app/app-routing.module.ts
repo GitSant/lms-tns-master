@@ -7,7 +7,8 @@ const routes: Routes = [
     { path: "login", loadChildren: "~/app/login/login.module#LoginModule" },
     { path: "applyleave", loadChildren: "~/app/apply-leave/apply-leave.module#ApplyLeaveModule" },
     { path: "leavebalance", loadChildren: "~/app/leave-balance/leave-balance.module#LeaveBalanceModule" },
-    { path: "geolocation", loadChildren: "~/app/geo-location/geolocation.module#GeoLocationModule"}
+    { path: "geolocation", loadChildren: "~/app/geo-location/geolocation.module#GeoLocationModule"},
+    { path: "geomap", loadChildren: "~/app/geo-map/geo-map.module#GeoMapModule"}
 ];
 
 @NgModule({

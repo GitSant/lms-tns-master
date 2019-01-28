@@ -56,6 +56,12 @@ http://docs.telerik.com/devtools/nativescript-ui/Controls/NativeScript/SideDrawe
                     <Label col="1" text="Geo Location" class="p-r-10"></Label>
                 </GridLayout>
 
+                <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/geolocation')"
+                    (tap)="onNavItemTap('/geomap')">
+                    <Label col="0" text="&#xf041;" class="fa"></Label>
+                    <Label col="1" text="Geo Map" class="p-r-10"></Label>
+                </GridLayout>
+
                 <StackLayout class="hr-light"></StackLayout>
                 <!-- Keep Logout section here -->
                 <!-- <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isComponentSelected('/settings')" (tap)="onNavItemTap('/settings')">
