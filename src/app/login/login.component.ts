@@ -48,10 +48,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private appComponent: AppComponent
   ) {
     this.user = new User();
-    this.user.email = "saptagiri.k@tekyslab.com";
-    this.user.password = "Tekys@123";
-    // this.user.email = "";
-    // this.user.password = "";
+    // this.user.email = "saptagiri.k@tekyslab.com";
+    // this.user.password = "Tekys@123";
+    this.user.email = "";
+    this.user.password = "";
     this.userInfo = this.storageService.getuserInfo();
   }
 
