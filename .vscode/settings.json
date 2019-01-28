@@ -1,0 +1,9 @@
+// {
+//     "workbench.settings.editor": "json"
+// }
+{
+    "files.exclude": {
+        "**/*.js": true,
+        "**/*.js.map": true
+    }
+}
