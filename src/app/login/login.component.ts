@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     );
   }
 
-  login(args: EventData) {
+  login() {
     //for handling double tap
     if ((new Date().getTime() - this.lastClickTime) < 1000) {
     return; 
