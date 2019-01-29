@@ -24,7 +24,8 @@ import { ConnectivityService } from "../services/connectivity.service";
 @Component({
   selector: "Login",
   moduleId: module.id,
-  templateUrl: "./login.component.html"
+  templateUrl: "./login.component.html",
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild("password") passwordField: ElementRef;
@@ -51,8 +52,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.user = new User();
     // this.user.email = "saptagiri.k@tekyslab.com";
     // this.user.password = "Tekys@123";
-    this.user.email = "";
-    this.user.password = "";
+    this.user.email = "saptagiri.k@tekyslab.com";
+    this.user.password = "Tekys@123";
     this.userInfo = this.storageService.getuserInfo();
   }
 

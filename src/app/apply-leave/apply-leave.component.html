@@ -7,141 +7,136 @@
     <Label class="action-bar-title" text="Apply Leave" color="white"></Label>
 </ActionBar>
 
-<StackLayout width="100%" height="100%" class="page page-content">
+<StackLayout class="page page-content mainlayout-css">
     <GridLayout rows="*, auto">
         <!-- <GridLayout row="0" rows="*">
             <ActivityIndicator color="green" [busy]="isactive" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
         </GridLayout> -->
-        <GridLayout padding="1,1,1,1" backgroundColor="#0080ff" margin="5">
-            <ScrollView orientation="vertical" row="0" rows="*">
-                <GridLayout row="0" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto" backgroundColor="white">
+        <GridLayout class="main-layout-border">
+            <ScrollView row="0" rows="*">
+                <GridLayout row="0" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto" class="text-field-inside-css">
                     <!-- Start Date -->
-                    <StackLayout row="0" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="0" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="Start Date" fontAttributes="Bold"></Span>
-                                <Span text="*" color="#ff0000"></Span>
+                                <Span text="Start Date"></Span>
+                                <Span text="*" class="red-color"></Span>
                             </FormattedString>
                         </Label>
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,0,5,0">
+                        <GridLayout class="text-field-border">
                             <TextField hint="Start Date" row="1" [(ngModel)]="model.startdate" (tap)="pickStartDate()"
-                                (textChange)="ondatechange()" editable="false" backgroundColor="white" padding="0,0,2,10"
-                                style="font-family:  Calibri;font-size: 14px;" height="25"></TextField>
+                                (textChange)="ondatechange()" editable="false" class="text-field-inside-css label-css"></TextField>
                         </GridLayout>
                     </StackLayout>
                     <!--Start Date Session -->
-                    <StackLayout row="1" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,5,0">
+                    <StackLayout row="1" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="Session" fontAttributes="Bold"></Span>
-                                <Span text="*" color="#ff0000"></Span>
+                                <Span text="Session"></Span>
+                                <Span text="*" class="red-color"></Span>
                             </FormattedString>
                         </Label>
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,0,0,0">
-                            <GridLayout columns="auto, *" (tap)="opensession1DD($event)" style="border:0cm solid black"
-                                backgroundColor="white">
+                        <GridLayout class="text-field-border">
+                            <GridLayout columns="auto, *" (tap)="opensession1DD($event)" class="bgcolor-white">
                                 <DropDown id="session1dd" [class]="dropdownCss" [items]="sessions" [(ngModel)]="model.session1"
                                     [selectedIndex]="session1index" (selectedIndexChanged)="sessionOneIndexChanged($event)"
-                                    row="0" col="0" width="100%">
+                                    row="0" col="0">
                                 </DropDown>
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
                     <!-- End Date -->
-                    <StackLayout row="2" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="2" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="End Date" fontAttributes="Bold"></Span>
-                                <Span text="*" color="#ff0000"></Span>
+                                <Span text="End Date"></Span>
+                                <Span text="*" class="red-color"></Span>
                             </FormattedString>
                         </Label>
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,0,0,0">
+                        <GridLayout class="text-field-border">
                             <TextField hint="End Date" row="1" [(ngModel)]="model.enddate" (tap)="pickEndDate()"
-                                editable="false" (textChange)="ondatechange()" backgroundColor="white" padding="0,0,2,10"
-                                style="font-family:  Calibri;font-size: 14px;" height="25"></TextField>
+                                editable="false" (textChange)="ondatechange()" class="text-field-inside-css label-css"></TextField>
                         </GridLayout>
                     </StackLayout>
                     <!-- End Date Session -->
-                    <StackLayout row="3" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="3" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="Session" fontAttributes="Bold"></Span>
-                                <Span text="*" color="#ff0000"></Span>
+                                <Span text="Session"></Span>
+                                <Span text="*" class="red-color"></Span>
                             </FormattedString>
                         </Label>
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,0,0,0">
-                            <GridLayout columns="auto, *" (tap)="opensession2DD($event)" style="border:0cm solid black"
-                                backgroundColor="white">
+                        <GridLayout class="text-field-border">
+                            <GridLayout columns="auto, *" (tap)="opensession2DD($event)" class="bgcolor-white">
                                 <DropDown id="session2dd" [class]="dropdownCss" [items]="sessions" [(ngModel)]="model.session2"
                                     [selectedIndex]="session2index" (selectedIndexChanged)="sessionTwoIndexChanged($event)"
-                                    row="0" col="0" width="100%">
+                                    row="0" col="0">
                                 </DropDown>
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
                     <!-- Leave type -->
-                    <StackLayout row="4" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="4" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="Leave Type" fontAttributes="Bold"></Span>
-                                <Span text="*" color="#ff0000"></Span>
+                                <Span text="Leave Type"></Span>
+                                <Span text="*" class="red-color"></Span>
                             </FormattedString>
                         </Label>
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,0,0,0">
-                            <GridLayout columns="auto, *" (tap)="openleavetypeDD($event)" style="border:0cm solid black"
-                                backgroundColor="white">
+                        <GridLayout class="text-field-border">
+                            <GridLayout columns="auto, *" (tap)="openleavetypeDD($event)" class="bgcolor-white">
                                 <DropDown id="leavetypedd" [class]="dropdownCss" [items]="leavetypes" [(ngModel)]="model.leavetype"
                                     [selectedIndex]="leavetypeindex" (selectedIndexChanged)="leaveTypeIndexChanged($event)"
-                                    row="0" col="0" width="100%">
+                                    row="0" col="0">
                                 </DropDown>
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
                     <!-- Number of Leave Days -->
-                    <StackLayout row="5" aria-rowspan="2" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="5" aria-rowspan="2" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="No of Leave Days:&nbsp;" fontAttributes="Bold"></Span>
-                                <Span text="{{model.leaveDays}}" color="#ff0000"></Span>
+                                <Span text="No of Leave Days:&nbsp;"></Span>
+                                <Span text="{{model.leaveDays}}" class="red-color"></Span>
                             </FormattedString>
                         </Label>
                     </StackLayout>
                     <!-- Available Leaves -->
-                    <StackLayout row="6" aria-rowspan="2" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="6" aria-rowspan="2" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="Available Leaves:&nbsp;" fontAttributes="Bold"></Span>
-                                <Span text="{{availableleaves}}" color="#ff0000"></Span>
+                                <Span text="Available Leaves:&nbsp;"></Span>
+                                <Span text="{{availableleaves}}" class="red-color"></Span>
                             </FormattedString>
                         </Label>
                     </StackLayout>
                     <!-- Leave Reason -->
-                    <StackLayout row="7" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="7" class="main-layout-orientation">
                         <Label class="lbl">
                             <FormattedString>
-                                <Span text="Leave Reason" fontAttributes="Bold"></Span>
-                                <Span text="*" color="#ff0000"></Span>
+                                <Span text="Leave Reason"></Span>
+                                <Span text="*" class="red-color"></Span>
                             </FormattedString>
                         </Label>
-                        <GridLayout padding="1,1,1,1" backgroundColor="lightgray" margin="5,0,0,0">
+                        <GridLayout class="text-field-border">
                             <GridLayout columns="*" (tap)="openleavetypeDD($event)">
-                                <TextView #leavereason row="1" class="input" style.placeholderColor="lightgray" hint="Leave Reason"
-                                    backgroundColor="white" [(ngModel)]="model.leavereason" autocorrect="false"
-                                    autocapitalizationType="none" height="150" style="font-family:  Calibri;font-size: 14px;" keyboardType="email" padding="0,0,0,10"></TextView>
+                                <TextView #leavereason row="1" class="input text-field-inside-css"
+                                    style.placeholderColor="lightgray" hint="Leave Reason" [(ngModel)]="model.leavereason"
+                                    autocorrect="false" autocapitalizationType="none" keyboardType="email"></TextView>
                             </GridLayout>
                         </GridLayout>
                     </StackLayout>
                     <!-- Apply button -->
-                    <StackLayout row="8" aria-rowspan="2" aria-orientation="vertical" padding="0,20,0,20" margin="5,0,0,0">
+                    <StackLayout row="8" aria-rowspan="2" class="main-layout-orientation">
                         <GridLayout row="1" rows="auto">
-                            <Button row="0" text="Apply" backgroundColor="#0080ff" color="white" (tap)="onapplytap()"
-                                width="40%" margin="0,0,10,0">
+                            <Button row="0" text="Apply" class="btn btn-primary btn-active button" (tap)="onapplytap()">
                             </Button>
                         </GridLayout>
                     </StackLayout>
                 </GridLayout>
             </ScrollView>
         </GridLayout>
-        <ActivityIndicator color="#0080ff" [busy]="busyindicator" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
+        <ActivityIndicator [busy]="busyindicator" color="#0080ff" aria-rowspan="3" horizontalAlignment="center"
+        verticalAlignment="center"></ActivityIndicator>
     </GridLayout>
 </StackLayout>

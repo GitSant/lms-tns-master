@@ -1,5 +1,5 @@
 /* Add mobile styles for the component here.  */
-Label{
+/* Label{
     color: black;
     font-weight: 300;
     font-family:  Calibri;
@@ -8,4 +8,13 @@ Label{
 }
 .lbl{
     font-weight: 400;
+} */
+.layout-css{
+horizontal-align:center;
+vertical-align: center;
+width: 80%;
+}
+.layout-content{
+    background-color: white;
+    padding: 10;
 }

@@ -1,0 +1,13 @@
+.error-label-css{
+    padding:0,0,5,25;
+    color:red;
+}
+.text-field{
+    padding:1,1,1,1;
+    margin:20,25,0,25;
+    background-color: lightgray;
+}
+.img-css{
+    width:200dp;
+    height:100dp;
+}

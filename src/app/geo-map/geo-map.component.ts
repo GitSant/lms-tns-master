@@ -3,6 +3,7 @@ import { registerElement } from 'nativescript-angular/element-registry';
 import { MapView, Marker, Position } from "nativescript-google-maps-sdk";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
+import { Image } from "ui/image";
 import { ImageSource, fromFile, fromResource, fromBase64 } from "tns-core-modules/image-source";
 
 // Important - must register MapView plugin in order to use in Angular templates
@@ -39,15 +40,15 @@ export class GeoMapComponent {
     this.mapView = event.object;
 
     console.log("Setting a marker...");
-
-    const ryderPin: ImageSource = <ImageSource>fromResource("rydermappin");
+    const ryderPin = new Image();
+    ryderPin.imageSource = fromResource("rydermappin");
     console.log(ryderPin);
     var marker = new Marker();
     marker.position = Position.positionFromLatLng(this.latitude, this.longitude);
     marker.title = "Tekyslab";
     marker.snippet = "Hyderabad";
     marker.userData = { index: 1 };
-    //marker.icon=ryderPin;
+    marker.icon=ryderPin;
     this.mapView.addMarker(marker);
 
     console.log("Marker set.");

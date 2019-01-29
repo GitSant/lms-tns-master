@@ -7,6 +7,7 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ModalDatetimepicker } from "nativescript-modal-datetimepicker";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
     bootstrap: [
@@ -17,7 +18,8 @@ import { ModalDatetimepicker } from "nativescript-modal-datetimepicker";
         NativeScriptModule,
         NativeScriptFormsModule,
         NativeScriptUISideDrawerModule,
-        HttpClientModule
+        HttpClientModule,
+        SharedModule
     ],
     declarations: [
         AppComponent

@@ -1,6 +1,6 @@
 /* Add mobile styles for the component here.  */
 /* Apply leave css */
-Label{
+/* Label{
     color: black;
     font-weight: 300;
     font-family:  Calibri;
@@ -13,4 +13,7 @@ Label{
 .dropdownContentsCss {
     padding:2,0,2,10;
     margin-top: 0;
+} */
+ScrollView{
+    orientation:vertical;
 }

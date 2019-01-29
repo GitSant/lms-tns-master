@@ -1,5 +1,5 @@
 /* Add mobile styles for the component here.  */
-Label{
+/* Label{
     color: black;
     font-weight: 300;
     font-family:  Calibri;
@@ -12,4 +12,10 @@ Label{
 .dropdownContentsCss {
     padding:2,0,2,10;
     margin-top: 0;
+} */
+.listview{
+   padding-bottom: 7;
+}
+.listview-items{
+    padding:5,0,0,20;
 }
