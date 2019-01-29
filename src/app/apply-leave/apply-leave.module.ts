@@ -4,6 +4,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { ApplyLeaveComponent } from './apply-leave.component';
 import {DropDownModule} from 'nativescript-drop-down/angular';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [ApplyLeaveComponent],
@@ -11,7 +12,8 @@ import {DropDownModule} from 'nativescript-drop-down/angular';
     ApplyLeaveRoutingModule,
     NativeScriptCommonModule,
     NativeScriptFormsModule,
-    DropDownModule
+    DropDownModule,
+    SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

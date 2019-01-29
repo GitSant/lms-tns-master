@@ -71,9 +71,4 @@ export class GeoMapComponent {
   onCameraMove(args) {
     console.log("Camera moving: " + JSON.stringify(args.camera));
   }
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>app.getRootView();
-    sideDrawer.showDrawer();
-  }
 }

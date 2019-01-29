@@ -5,6 +5,7 @@ import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { LeaveBalanceComponent } from './leave-balance.component';
 import { DropDownModule } from "nativescript-drop-down/angular";
 import {NativeScriptFormsModule} from "nativescript-angular/forms";
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [LeaveBalanceComponent],
@@ -12,7 +13,8 @@ import {NativeScriptFormsModule} from "nativescript-angular/forms";
     LeaveBalanceRoutingModule,
     NativeScriptCommonModule,
     DropDownModule,
-    NativeScriptFormsModule
+    NativeScriptFormsModule,
+    SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })

@@ -148,11 +148,6 @@ export class ApplyLeaveComponent implements OnInit {
     }
   }
 
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>app.getRootView();
-    sideDrawer.showDrawer();
-  }
-
   pickStartDate() {
     const picker = new modalDatepicker.ModalDatetimepicker();
     let month: string = "";
