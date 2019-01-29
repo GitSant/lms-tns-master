@@ -21,10 +21,6 @@ export class GeoLocationComponent {
         this.longitude = 0;
     }
 
-    onDrawerButtonTap(): void {
-        const sideDrawer = <RadSideDrawer>app.getRootView();
-        sideDrawer.showDrawer();
-    }
     // tslint:disable-next-line:member-ordering
     updateLocation() {
         // this.busyindicator = true;

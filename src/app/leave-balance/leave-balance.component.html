@@ -4,7 +4,7 @@
     </ActionItem>
     <Label class="action-bar-title" text="Leave Balance" color="white"></Label>
 </ActionBar> -->
-<ns-header title="Leave Balance" color="white"></ns-header>
+<ns-header id="shared" title="Leave Balance"></ns-header>
 <GridLayout class="main-layout-border">
     <StackLayout class="page page-content mainlayout-css" rows="*,auto">
         <GridLayout rows="*,auto">
@@ -38,6 +38,7 @@
                                     <Label class="lbl listview-items" [text]="emp.InProgressLeaves" col="1" row="5"></Label>
                                     <Label class="label-css" text="Rejected" col="0" row="6"></Label>
                                     <Label class="lbl listview-items" [text]="emp.RejectedLeaves" col="1" row="6"></Label>
+                                    <Label title="balance" col="0" row="7"></Label>
                                 </GridLayout>
                             </GridLayout>
                         </ng-template>

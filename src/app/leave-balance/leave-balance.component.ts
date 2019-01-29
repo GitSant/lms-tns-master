@@ -94,9 +94,4 @@ export class LeaveBalanceComponent implements OnInit {
     this.getEmpLeaveBalance(parseInt(this.currentYear).toString());
     }
   }
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>app.getRootView();
-    sideDrawer.showDrawer();
-  }
 }
