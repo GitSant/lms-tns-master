@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   passwordValidateError: boolean = false;
   emailformatvalidationerror: boolean = false;
   enablebackbutton: boolean;
+  lastClickTime: number = 0;
 
   // tslint:disable-next-line:max-line-length
   constructor(
@@ -74,12 +75,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
     app.android.on(
       app.AndroidApplication.activityBackPressedEvent,
       (args: AndroidActivityBackPressedEventData) => {
-          args.cancel = (this.userInfo === undefined) ? true : false;
+        args.cancel = (this.userInfo === undefined) ? true : false;
       }
     );
   }
 
-  login() {
+  login(args: EventData) {
+    //for handling double tap
+    if ((new Date().getTime() - this.lastClickTime) < 1000) {
+    return; 
+    }
+    this.lastClickTime = new Date().getTime();
     if (this.connectionService.checkConnection()) {
       this.validateEmail(this.user.email);
       this.validatePassword(this.user.password);
