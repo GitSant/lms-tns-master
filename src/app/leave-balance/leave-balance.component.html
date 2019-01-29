@@ -1,9 +1,10 @@
-<ActionBar class="action-bar">
+<!-- <ActionBar class="action-bar">
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
     <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
     <Label class="action-bar-title" text="Leave Balance" color="white"></Label>
-</ActionBar>
+</ActionBar> -->
+<ns-header title="Leave Balance" color="white"></ns-header>
 <GridLayout class="main-layout-border">
     <StackLayout class="page page-content mainlayout-css" rows="*,auto">
         <GridLayout rows="*,auto">
@@ -44,7 +45,7 @@
                 </StackLayout>
             </GridLayout>
             <ActivityIndicator [busy]="showindicator" color="#0080ff" aria-rowspan="3" horizontalAlignment="center"
-            verticalAlignment="center"></ActivityIndicator>
+                verticalAlignment="center"></ActivityIndicator>
         </GridLayout>
     </StackLayout>
 </GridLayout>
