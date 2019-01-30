@@ -1,15 +1,17 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptCommonModule } from 'nativescript-angular/common';
-import { HeaderComponent } from './header/header.component';
+// import { HeaderComponent } from './header/header.component';
 import {NativeScriptFormsModule} from "nativescript-angular/forms";
+import { HeaderModule } from './header/header.module';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [],
   imports: [
     NativeScriptCommonModule,
-    NativeScriptFormsModule
+    NativeScriptFormsModule,
+    HeaderModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  exports:[HeaderComponent]
+  exports:[HeaderModule]
 })
 export class SharedModule { }

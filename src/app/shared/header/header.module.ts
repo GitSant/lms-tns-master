@@ -12,6 +12,6 @@ import { HeaderComponent } from './header.component';
     NativeScriptFormsModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  exports: []
+  exports: [HeaderComponent]
 })
 export class HeaderModule { }
