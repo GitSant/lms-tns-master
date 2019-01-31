@@ -12,6 +12,9 @@ import { ILeaveTypes } from "../models/leavetype.model";
 import { ConnectivityService } from "../services/connectivity.service";
 import { LeaveService } from "../services/leave.service";
 import { StorageService } from "../services/storage.service";
+import * as utils from "utils/utils";
+import { isIOS, isAndroid } from "platform";
+import * as frame from "ui/frame";
 
 @Component({
   selector: "ns-apply-leave",
@@ -137,6 +140,13 @@ export class ApplyLeaveComponent implements OnInit {
     }
   }
 
+  dismissSoftKeybaord(){
+      if (isIOS) {
+         frame.topmost().nativeView.endEditing(true);
+      }else if (isAndroid) {
+        utils.ad.dismissSoftInput();
+      }
+  }
   // tslint:disable-next-line:member-ordering
   ondatechange() {
     // tslint:disable-next-line:max-line-length

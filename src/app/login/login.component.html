@@ -18,7 +18,7 @@
                             <TextField #email="ngModel" row="0" class="input text-field-inside-css label-css"
                                 style.placeholderColor="lightgray" hint="Email Id*" keyboardType="email"
                                 [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none" required
-                                (blur)="validatemail(user.email)">
+                                (blur)="validatemail(user.email)" (tap)="dismissSoftKeybaord">
                             </TextField>
                         </GridLayout>
                     </GridLayout>
@@ -34,7 +34,7 @@
                         <GridLayout rows="auto" class="text-field">
                             <TextField #password="ngModel" row="1" col="0" class="input text-field-inside-css label-css"
                                 style.placeholderColor="lightgray" hint="Password*" class="text-field-inside-css"
-                                secure="true" [(ngModel)]="user.password" required>
+                                secure="true" [(ngModel)]="user.password" required (tap)="dismissSoftKeybaord">
                             </TextField>
                         </GridLayout>
                     </GridLayout>

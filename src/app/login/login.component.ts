@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  AfterViewInit,
-  ChangeDetectorRef
-} from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { RouterExtensions } from "nativescript-angular/router";
 import * as app from "tns-core-modules/application";
 import * as Toast from "nativescript-toast";
@@ -14,14 +7,12 @@ import { AuthenticationService } from "../services/authentication.service";
 import { StorageService } from "../services/storage.service";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Employee } from "../models/employee.model";
-import {
-  AndroidActivityBackPressedEventData,
-  getRootView
-} from "tns-core-modules/application";
+import { AndroidActivityBackPressedEventData,getRootView } from "tns-core-modules/application";
 import { AppComponent } from "../app.component";
 import { ConnectivityService } from "../services/connectivity.service";
 import { isAndroid, isIOS } from "tns-core-modules/platform";
-
+import * as utils from "utils/utils";
+import * as frame from "ui/frame";
 
 @Component({
   selector: "Login",
@@ -52,10 +43,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private appComponent: AppComponent
   ) {
     this.user = new User();
-    // this.user.email = "saptagiri.k@tekyslab.com";
-    // this.user.password = "Tekys@123";
-    this.user.email = "";
-    this.user.password = "";
+    this.user.email = "saptagiri.k@tekyslab.com";
+    this.user.password = "Tekys@123";
+    // this.user.email = "";
+    // this.user.password = "";
     this.userInfo = this.storageService.getuserInfo();
   }
 
@@ -84,6 +75,14 @@ export class LoginComponent implements OnInit, AfterViewInit {
     );
     }
   }
+
+  dismissSoftKeybaord(){
+    if (isIOS) {
+       frame.topmost().nativeView.endEditing(true);
+    }else if (isAndroid) {
+      utils.ad.dismissSoftInput();
+    }
+}
 
   login() {
     //for handling double tap

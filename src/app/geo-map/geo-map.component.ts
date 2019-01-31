@@ -5,6 +5,7 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import * as app from "tns-core-modules/application";
 import { Image } from "ui/image";
 import { ImageSource, fromFile, fromResource, fromBase64 } from "tns-core-modules/image-source";
+import { isAndroid, isIOS } from 'tns-core-modules/ui/page/page';
 
 // Important - must register MapView plugin in order to use in Angular templates
 registerElement('MapView', () => MapView);
@@ -41,7 +42,11 @@ export class GeoMapComponent {
 
     console.log("Setting a marker...");
     const ryderPin = new Image();
-    ryderPin.imageSource = fromResource("rydermappin");
+    if(isAndroid){
+      ryderPin.imageSource = fromResource("rydermappin");
+    }else if(isIOS){
+      ryderPin.imageSource = fromResource("mapicon/rydermappin");
+    }
     console.log(ryderPin);
     var marker = new Marker();
     marker.position = Position.positionFromLatLng(this.latitude, this.longitude);

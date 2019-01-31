@@ -104,7 +104,7 @@
                         </Label>
                     </StackLayout>
                     <!-- Leave Reason -->
-                    <StackLayout row="7" class="main-layout-orientation">
+                    <StackLayout row="7" class="main-layout-orientation" (tap)="dismissSoftKeybaord">
                         <Label class="lbl">
                             <FormattedString>
                                 <Span text="Leave Reason"></Span>
@@ -112,11 +112,11 @@
                             </FormattedString>
                         </Label>
                         <GridLayout class="text-field-border">
-                            <GridLayout columns="*" (tap)="openleavetypeDD($event)">
-                                <TextView #leavereason row="1" class="input text-field-inside-css"
+                            <StackLayout>
+                                <TextView #leavereason class="input text-field-inside-css"
                                     style.placeholderColor="lightgray" hint="Leave Reason" [(ngModel)]="model.leavereason"
                                     autocorrect="false" autocapitalizationType="none" keyboardType="email"></TextView>
-                            </GridLayout>
+                            </StackLayout>
                         </GridLayout>
                     </StackLayout>
                     <!-- Apply button -->

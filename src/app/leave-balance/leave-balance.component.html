@@ -8,7 +8,7 @@
 <GridLayout class="main-layout-border">
     <StackLayout class="page page-content mainlayout-css" rows="*,auto">
         <GridLayout rows="*,auto">
-            <GridLayout row="0" rows="auto,*" ,columns="auto,auto">
+            <GridLayout row="0" rows="auto,*">
                 <StackLayout row="0" class="main-layout-orientation">
                     <label class="lbl" text="Select Year" row="0"></label>
                     <GridLayout class="text-field-border">
@@ -19,8 +19,8 @@
                         </GridLayout>
                     </GridLayout>
                 </StackLayout>
-                <StackLayout row="1" columns="auto,auto" class="main-layout-orientation">
-                    <ListView [items]="empLeaveBalanceInfo" separatorColor="transparent" class="list-group">
+                <GridLayout row="1" rows="*" class="main-layout-orientation">
+                    <ListView row="0" [items]="empLeaveBalanceInfo" separatorColor="transparent" class="list-group">
                         <ng-template let-emp="item">
                             <GridLayout class="text-field-border">
                                 <GridLayout columns="*,*" rows="auto,auto,auto,auto,auto,auto,auto" class="text-field-inside-css listview">
@@ -43,7 +43,7 @@
                             </GridLayout>
                         </ng-template>
                     </ListView>
-                </StackLayout>
+                </GridLayout>
             </GridLayout>
             <ActivityIndicator [busy]="showindicator" color="#0080ff" aria-rowspan="3" horizontalAlignment="center"
                 verticalAlignment="center"></ActivityIndicator>

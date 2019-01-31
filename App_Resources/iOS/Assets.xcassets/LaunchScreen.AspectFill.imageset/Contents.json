@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "LaunchScreen-AspectFill.png",
+      "filename" : "whitebackground.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "LaunchScreen-AspectFill@2x.png",
+      "filename" : "whitebackground@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "LaunchScree.AspectFill@3x.png",
+      "filename" : "whitebackground@3x.png",
       "scale" : "3x"
     }
   ],
