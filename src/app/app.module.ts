@@ -8,6 +8,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ModalDatetimepicker } from "nativescript-modal-datetimepicker";
 import { SharedModule } from "./shared/shared.module";
+import * as platform from "platform";
+declare var GMSServices: any;
+
+if(platform.isIOS) {
+    GMSServices.provideAPIKey("AIzaSyBIYR3AYWV86x6AhWYInL3P46KgSpIRXHM");
+}
 
 @NgModule({
     bootstrap: [

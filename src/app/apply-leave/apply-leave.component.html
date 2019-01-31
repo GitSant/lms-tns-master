@@ -5,6 +5,7 @@
             <ActivityIndicator color="green" [busy]="isactive" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator>
         </GridLayout> -->
         <GridLayout class="main-layout-border">
+            <StackLayout class="bgcolor-white"> 
             <ScrollView row="0" rows="*">
                 <GridLayout row="0" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto" class="text-field-inside-css">
                     <!-- Start Date -->
@@ -127,6 +128,7 @@
                     </StackLayout>
                 </GridLayout>
             </ScrollView>
+        </StackLayout>
         </GridLayout>
         <ActivityIndicator [busy]="busyindicator" color="#0080ff" aria-rowspan="3" horizontalAlignment="center"
         verticalAlignment="center"></ActivityIndicator>

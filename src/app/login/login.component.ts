@@ -20,6 +20,8 @@ import {
 } from "tns-core-modules/application";
 import { AppComponent } from "../app.component";
 import { ConnectivityService } from "../services/connectivity.service";
+import { isAndroid, isIOS } from "tns-core-modules/platform";
+
 
 @Component({
   selector: "Login",
@@ -52,8 +54,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.user = new User();
     // this.user.email = "saptagiri.k@tekyslab.com";
     // this.user.password = "Tekys@123";
-    this.user.email = "saptagiri.k@tekyslab.com";
-    this.user.password = "Tekys@123";
+    this.user.email = "";
+    this.user.password = "";
     this.userInfo = this.storageService.getuserInfo();
   }
 
@@ -72,6 +74,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   enableOrdisableBackButton() {
+    if(isAndroid){
     // disabling back button
     app.android.on(
       app.AndroidApplication.activityBackPressedEvent,
@@ -79,6 +82,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         args.cancel = (this.userInfo === undefined) ? true : false;
       }
     );
+    }
   }
 
   login() {
