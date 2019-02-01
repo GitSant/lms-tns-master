@@ -1,12 +1,56 @@
-<StackLayout  height=280 padding = "0,20,0,20" >
-    <GridLayout verticalAlignment="center" backgroundColor="lightgray" class="form"height=280>
-        <StackLayout class="form">
-            <Label class="h3 text-center" padding="20,0,10,0" text="User Login" font-weight="bolder"></Label>
-                <StackLayout class="input-field">
-                      <TextField class="input" margin="0,0,10,0" style.placeholderColor="lightgray" height = 40 hint="Email Id"  backgroundColor="white" padding="0,0,0,10"></TextField>
-                      <TextField class="input" margin="20,0,0,0"  style.placeholderColor="lightgray" height = 40 hint="Password"  backgroundColor="white" padding="0,0,0,10"></TextField>
-                </StackLayout>
-                    <Button text="Log In" margin="20,0,0,0" class="btn btn-primary"width = 100></Button>
-        </StackLayout>
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="TekysPortal" color="white"></Label>
+</ActionBar>
+
+<StackLayout class="mainlayout-css">
+    <GridLayout rows="*,auto">
+        <!-- <GridLayout row="0" rows="auto" rows="*">
+            <ActivityIndicator color="green" [busy]="showindicator" horizontalAlignment="stretch" verticalAlignment="stretch"></ActivityIndicator>
+        </GridLayout> -->
+        <GridLayout row="0" rows="*">
+            <GridLayout row="0" rows="*" class="main-layout-border main-layout"verticalAlignment="center" horizontalAlignment="center">
+                <GridLayout row="0" rows="*,auto, auto, auto, auto, auto"class="bgcolor-white" verticalAlignment="top">
+                    <GridLayout row="0" rows="auto"class="bgcolor-white">
+                        <Image src="~/images/tekyslab.png" class="img-css"></Image>
+                    </GridLayout>
+                    <GridLayout row="1" rows="auto" class="bgcolor-white">
+                        <GridLayout rows="auto" class="text-field">
+                            <TextField #email="ngModel" row="0" class="input text-field-inside-css label-css"
+                                style.placeholderColor="lightgray" hint="Email Id*" keyboardType="email"
+                                [(ngModel)]="user.email" autocorrect="false" autocapitalizationType="none" required
+                                (blur)="validatemail(user.email)" (tap)="dismissSoftKeybaord">
+                            </TextField>
+                        </GridLayout>
+                    </GridLayout>
+                    <GridLayout row="2">
+                        <StackLayout *ngIf="(email.errors) && ((emailvalidateerror)||(!email.invalid))">
+                            <Label *ngIf="email.errors?.required" text="Email Id is required." class="error-label-css"></Label>
+                        </StackLayout>
+                        <StackLayout *ngIf="email.valid">
+                            <Label *ngIf="emailformatvalidationerror" text="Enter a valid Email Id." class="error-label-css"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                    <GridLayout row="3" rows="auto" class="bgcolor-white">
+                        <GridLayout rows="auto" class="text-field">
+                            <TextField #password="ngModel" row="1" col="0" class="input text-field-inside-css label-css"
+                                style.placeholderColor="lightgray" hint="Password*" class="text-field-inside-css"
+                                secure="true" [(ngModel)]="user.password" required (tap)="dismissSoftKeybaord">
+                            </TextField>
+                        </GridLayout>
+                    </GridLayout>
+                    <GridLayout row="4" rows="auto">
+                        <StackLayout *ngIf="(password.errors) && ((passwordValidateError)||(!password.invalid))">
+                            <Label *ngIf="password.errors?.required" text="Password is required." class="error-label-css"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                    <GridLayout row="5" rows="auto">
+                        <Button row="0" text="LogIn" (tap)="login()" class="btn btn-primary btn-active button">
+                        </Button>
+                    </GridLayout>
+                </GridLayout>
+            </GridLayout>
+        </GridLayout>
+        <ActivityIndicator color="#0080ff" [busy]="showindicator" aria-rowspan="3" horizontalAlignment="center"
+        verticalAlignment="center"></ActivityIndicator>
     </GridLayout>
 </StackLayout>

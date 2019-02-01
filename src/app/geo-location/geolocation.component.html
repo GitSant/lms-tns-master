@@ -1,0 +1,14 @@
+<ns-header title="Geo Location"></ns-header>
+<GridLayout rows="*,auto">
+    <GridLayout class="main-layout-border layout-css" rows="*">
+        <StackLayout row="0" class="layout-content">
+            <Label text="Latitude: {{ latitude }}" class="lbl"></Label>
+            <Label text="Longitude: {{ longitude }}" class="lbl"></Label>
+            <Button class="btn btn-primary btn-active button" text="Update" (tap)="updateLocation()"></Button>
+            <!-- <Button class="btn btn-primary btn-active" text="Watch Location" (tap)="startWatchingLocation()"></Button>
+        <Button class="btn btn-primary btn-active" text="Stop Watching" (tap)="stopWatchingLocation()"></Button> -->
+        </StackLayout>
+    </GridLayout>
+    <ActivityIndicator [busy]="busyindicator" color="#0080ff" aria-rowspan="3" horizontalAlignment="center"
+    verticalAlignment="center"></ActivityIndicator>
+</GridLayout>

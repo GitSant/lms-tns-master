@@ -26,7 +26,62 @@
 ActionBar .action-bar-title {
     horizontal-align: center;
 }
-
+ .lbl{
+    font-weight: 400;
+    color: black
+}
+.dropdownContentsCss {
+    padding:2,0,2,10;
+    margin-top: 0;
+    width: 100%;
+} 
+.label-css{
+    color:black;
+    font-weight: 300;
+    font-family:  Calibri;
+    font-size: 15px;
+    padding:5,0,0,0;
+    height: 25;
+}
+.main-layout-border{
+    padding:1,1,1,1 ;
+    background-color: #0080ff;
+    margin:5;
+}
+.main-layout-orientation{
+    
+    padding:0,20,0,20;
+    margin:5,0,5,0;
+}
+.text-field-border{
+    padding:1;
+    background-color:lightgray;
+     margin:5,0,5,0;
+}
+.text-field-inside-css{
+    background-color:white ;
+    padding:0,0,0,10;
+}
+.mainlayout-css{
+height: 100%;
+width: 100%;
+}
+TextView{
+    padding:0,0,0,10;
+    height:150;
+    font-family:  Calibri;
+    font-size: 14px;
+}
+.button{
+     width:40%;
+     margin:10,0,10,0;
+}
+.red-color{
+    color: #ff0000;
+}
+.bgcolor-white{
+    background-color: white;
+}
  // Drawer navigation custom styles
 $sidedrawer-header-image-size: 60;
 $sidedrawer-header-image-offset-top: 20;

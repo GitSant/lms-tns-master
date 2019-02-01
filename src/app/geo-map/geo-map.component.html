@@ -1,0 +1,22 @@
+<ns-header title="Geo Map"></ns-header>
+
+<GridLayout rows="*">
+    <!-- <GridLayout padding="1,1,1,1" backgroundColor="#0080ff" verticalAlignment="center"
+        horizontalAlignment="center" rows="*" width="80%">
+        <StackLayout backgroundColor="white" row="0" padding="10">
+            <Label text="Latitude: {{ latitude }}" class="lbl"></Label>
+            <Label text="Longitude: {{ longitude }}" class="lbl"></Label>
+            <Button class="btn btn-primary btn-active" text="Update" (tap)="updateLocation()"></Button>
+             <Button class="btn btn-primary btn-active" text="Watch Location" (tap)="startWatchingLocation()"></Button>
+        <Button class="btn btn-primary btn-active" text="Stop Watching" (tap)="stopWatchingLocation()"></Button>
+        </StackLayout>
+    </GridLayout>
+    <ActivityIndicator color="#0080ff" [busy]="busyindicator" horizontalAlignment="center" verticalAlignment="center"></ActivityIndicator> -->
+    <GridLayout>
+        <MapView #mapView [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [minZoom]="minZoom" [maxZoom]="maxZoom"
+            [bearing]="bearing" [tilt]="tilt" i-padding="50,50,50,50" [padding]="padding" (mapReady)="onMapReady($event)"
+            (markerSelect)="onMarkerEvent($event)" (markerBeginDragging)="onMarkerEvent($event)" (markerEndDragging)="onMarkerEvent($event)"
+            (markerDrag)="onMarkerEvent($event)" (markerInfoWindowTapped)="onMarkerEvent($event)" (coordinateTapped)="onCoordinateTapped($event)"
+            (cameraChanged)="onCameraChanged($event)" (cameraMove)="onCameraMove($event)"></MapView>
+    </GridLayout>
+</GridLayout>

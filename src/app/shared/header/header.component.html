@@ -1,0 +1,8 @@
+<ActionBar class="action-bar">
+    <!-- For android menu button -->
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <!-- For iOS menu button-->
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" [text]="title" color="white"></Label>
+</ActionBar>

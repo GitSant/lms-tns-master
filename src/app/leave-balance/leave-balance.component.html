@@ -1,0 +1,52 @@
+<!-- <ActionBar class="action-bar">
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Leave Balance" color="white"></Label>
+</ActionBar> -->
+<ns-header id="shared" title="Leave Balance"></ns-header>
+<GridLayout class="main-layout-border">
+    <StackLayout class="page page-content mainlayout-css" rows="*,auto">
+        <GridLayout rows="*,auto">
+            <GridLayout row="0" rows="auto,*">
+                <StackLayout row="0" class="main-layout-orientation">
+                    <label class="lbl" text="Select Year" row="0"></label>
+                    <GridLayout class="text-field-border">
+                        <GridLayout (tap)="openDD($event)" class="bgcolor-white">
+                            <DropDown #dd [class]="dropdownCss" id="yearsdd" [items]="allYears" [(ngModel)]="selectedyear"
+                                [selectedIndex]="currentYearIndex" (selectedIndexChanged)="yearIndexChanged($event)"
+                                row="0" col="0"></DropDown>
+                        </GridLayout>
+                    </GridLayout>
+                </StackLayout>
+                <GridLayout row="1" rows="*" class="main-layout-orientation">
+                    <ListView row="0" [items]="empLeaveBalanceInfo" separatorColor="transparent" class="list-group">
+                        <ng-template let-emp="item">
+                            <GridLayout class="text-field-border">
+                                <GridLayout columns="*,*" rows="auto,auto,auto,auto,auto,auto,auto" class="text-field-inside-css listview">
+                                    <Label class="label-css" text="Type" col="0" row="0"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.LeaveTypeName" col="1" row="0"></Label>
+                                    <Label class="label-css" text="Total" col="0" row="1"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.TotalLeaves" col="1" row="1"></Label>
+                                    <Label class="label-css" text="Applied" col="0" row="2"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.ApplyedLeaves" col="1" row="2"></Label>
+                                    <Label class="label-css" text="Utilized" col="0" row="3"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.UtilizedLeaves" col="1" row="3"></Label>
+                                    <Label class="label-css" text="Available" col="0" row="4"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.AvailableLeaves" col="1" row="4"></Label>
+                                    <Label class="label-css" text="In Progress" col="0" row="5"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.InProgressLeaves" col="1" row="5"></Label>
+                                    <Label class="label-css" text="Rejected" col="0" row="6"></Label>
+                                    <Label class="lbl listview-items" [text]="emp.RejectedLeaves" col="1" row="6"></Label>
+                                    <Label title="balance" col="0" row="7"></Label>
+                                </GridLayout>
+                            </GridLayout>
+                        </ng-template>
+                    </ListView>
+                </GridLayout>
+            </GridLayout>
+            <ActivityIndicator [busy]="showindicator" color="#0080ff" aria-rowspan="3" horizontalAlignment="center"
+                verticalAlignment="center"></ActivityIndicator>
+        </GridLayout>
+    </StackLayout>
+</GridLayout>
